@@ -114,13 +114,13 @@ class UsuarioController extends Controller
 }
 
     public function showSettings(){
-        return view('app.settings');
+        return view('back.settings');
     }
 
 
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login');
+        return redirect()->route('events.public');
     }
 }

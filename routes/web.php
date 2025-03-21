@@ -11,7 +11,8 @@ Route::post('events/newadmin', [AdministratorController::class, 'newadmin'])->na
 Route::get('events/archive/{id}', [EventController::class, 'archive'])->name('events.archive');
 Route::get('events/delete/{id}', [EventController::class, 'destroy'])->name('events.delete');
 Route::get('settings', [UsuarioController::class ,'showSettings'])->name('events.settings');
-Route::get('/', [EventController::class, 'index'] )->name('events.index');
+Route::get('/', [EventController::class, 'getPublicEvents'] )->name('events.public');
+Route::get('administration', [EventController::class, 'index'] )->name('events.index');
 Route::get('events', [EventController::class, 'index']);
 Route::resource('events', EventController::class)->except('index', 'destroy');
 Route::get('login', UsuarioController::class)->name('login');

@@ -18,10 +18,15 @@ class EventController extends Controller
      * Display a listing of the resource.
      */
 
-     public function __construct()
-     {
-        $this->middleware('auth:web,admin')->except(['login']);
-     }
+    public function __construct()
+    {
+    $this->middleware('auth:web,admin')->except(['login', 'getPublicEvents']);
+    }
+
+    public function getPublicEvents() {
+        $events = Event::get();
+        return view('front.index', compact('events'));
+    }
 
     public function index()
     {
@@ -30,7 +35,7 @@ class EventController extends Controller
         $mainAdmin = User::findOrFail($mainAdmin_id);
         $administrators = Administrator::where('user_id',$mainAdmin_id)->get();
         $eventsArchive = count(EventArchive::get());
-        return view('app.index', compact('events', 'eventsArchive', 'administrators', 'mainAdmin'));
+        return view('back.index', compact('events', 'eventsArchive', 'administrators', 'mainAdmin'));
     }
 
     /**
@@ -38,7 +43,7 @@ class EventController extends Controller
      */
     public function create()
     {
-            return view('app.create');
+            return view('back.create');
     }
 
     /**
@@ -52,13 +57,21 @@ class EventController extends Controller
             'address' => 'required|string|max:255',
             'startDate' => 'required|date',
             'startTime' => 'required|date_format:H:i',
-            'endDate' => 'nullable|date',
+            'endDate' => 'required|date',
             'endTime' => 'required|date_format:H:i',
             'paymentType' => 'required|in:free,paid',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'nullable|string',
             'user_id' =>    'required'
         ]);
+
+        // Consultar si hemos obtenido la imagen y si es valida
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            // Guardaremos la imagen en la ruta personalizada a partir de la carpeta public
+            $filePath = $request->file('image')->store('events', 'public');
+            $validatedData['image'] = $filePath;
+        }
+
 
         Event::create($validatedData);
         //Mail::to(auth()->user()->email)->send(new PostMail());
@@ -79,7 +92,7 @@ class EventController extends Controller
     public function edit(string $id)
     {
         $event = Event::findOrFail($id);
-        return view('app.update', compact('event'));
+        return view('back.update', compact('event'));
     }
 
     /**
@@ -100,6 +113,13 @@ class EventController extends Controller
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        // Consultar si hemos obtenido la imagen y si es valida
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            // Guardaremos la imagen en la ruta personalizada a partir de la carpeta public
+            $filePath = $request->file('image')->store('events', 'public');
+            $validatedData['image'] = $filePath;
+        }
 
         // Buscar el evento por su ID
         $event = Event::findOrFail($id);  // Usa findOrFail para obtener el evento o devolver un error 404 si no se encuentra

@@ -10,6 +10,8 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-primary: #ff5a5f;
+    --color-smoke: #F5F5F5;
 }
 
 *{
@@ -36,7 +38,7 @@ body{
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow-x: hidden;
-    width: 250px;
+    width: 265px;
 }
 
 .active{

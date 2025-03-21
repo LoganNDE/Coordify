@@ -1,5 +1,6 @@
 import './bootstrap';
 import Swal from 'sweetalert2';
+import moment from 'moment';
 
 window.onload = () =>{
     const mylocalStorage = window.localStorage;
@@ -11,6 +12,8 @@ window.onload = () =>{
     const deleteEventBtn = document.querySelectorAll('.btnRemove');
     const btnLogout = document.getElementById('logout');
     const btnImportEvent = document.getElementById('btnImportEvent');
+    const viewTime = document.querySelectorAll('.viewTime');
+    const viewDate = document.querySelectorAll('.viewDate');
 
     if (error) {
       const Toast = Swal.mixin({
@@ -154,5 +157,21 @@ window.onload = () =>{
     if (btnImportEvent){
       btnImportEvent.addEventListener('click', importEvent)
     }
+
+
+    if (viewTime){
+      let maxLength = 6;
+      viewTime.forEach(time => {
+        time.textContent = time.textContent.substring(0, maxLength)
+      });
+    }
+
+    if (viewDate){
+      viewDate.forEach(date => {
+        let arrDate = date.textContent.split('-')
+        date.textContent = arrDate[2]+'/'+arrDate[1]+'/'+arrDate[0];
+      });
+    }
+
 
 }
