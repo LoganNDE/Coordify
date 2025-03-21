@@ -31,7 +31,7 @@
                         ></path>
                         </svg>
                 </button>
-                <input class="input rounded-full w-[600px] px-8 py-3 border-2 border-transparent focus:outline-none focus:border-blue-500 placeholder-gray-400 transition-all duration-300 shadow-md"
+                <input class="input rounded-full w-[600px] px-8 py-3 border-2 border-transparent focus:outline-none focus:border-blue-500 placeholder-gray-400 transition-all duration-300 shadow"
                 placeholder="Search..."
                 required=""
                 type="text"/>
