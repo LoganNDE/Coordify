@@ -1,6 +1,5 @@
 import './bootstrap';
 import Swal from 'sweetalert2';
-import moment from 'moment';
 
 window.onload = () =>{
     const mylocalStorage = window.localStorage;
@@ -14,6 +13,8 @@ window.onload = () =>{
     const btnImportEvent = document.getElementById('btnImportEvent');
     const viewTime = document.querySelectorAll('.viewTime');
     const viewDate = document.querySelectorAll('.viewDate');
+    const paidRadio = document.getElementById('paidRadio');
+    const freeRadio = document.getElementById('freeRadio');
 
     if (error) {
       const Toast = Swal.mixin({
@@ -149,6 +150,18 @@ window.onload = () =>{
       }
     }
 
+    const priceCase = (event) =>{
+      if (event.target.checked){
+        console.log(event.target)
+        let priceCase = document.querySelector('.inputPrice');
+          if (priceCase && event.target.id == 'paidRadio'){
+            priceCase.classList.remove('hidden');
+          }else if (priceCase && event.target.id == 'freeRadio'){
+            priceCase.classList.add('hidden')
+          }
+      }
+    }
+
 
     if (btnLogout){
       btnLogout.addEventListener('click', confirmLogout);
@@ -156,6 +169,16 @@ window.onload = () =>{
 
     if (btnImportEvent){
       btnImportEvent.addEventListener('click', importEvent)
+    }
+
+    if (paidRadio){
+      //let priceCase = document.querySelector('.inputPrice');
+      paidRadio.addEventListener('change', priceCase)
+      freeRadio.addEventListener('change', priceCase)
+      /*if (paidRadio.checked){
+        priceCase.classList.remove('hidden')
+      }
+      */
     }
 
 
@@ -172,6 +195,4 @@ window.onload = () =>{
         date.textContent = arrDate[2]+'/'+arrDate[1]+'/'+arrDate[0];
       });
     }
-
-
 }

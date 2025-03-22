@@ -60,10 +60,15 @@ class EventController extends Controller
             'endDate' => 'required|date',
             'endTime' => 'required|date_format:H:i',
             'paymentType' => 'required|in:free,paid',
+            'price' => 'required|integer',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'nullable|string',
             'user_id' =>    'required'
         ]);
+
+        if ($request->input('paymentType') == 'free' && $request->input('price') > 0){
+            return redirect()->route('events.create')->with('error', 'Los evetos gratuitos no pueden tener precio');
+        }
 
         // Consultar si hemos obtenido la imagen y si es valida
         if ($request->hasFile('image') && $request->file('image')->isValid()) {

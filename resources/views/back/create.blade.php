@@ -9,7 +9,7 @@
         <!-- Nombre -->
         <div class="mb-6">
             <label class="block text-gray-700 mb-2" for="name">Nombre<span class="text-red-500">*</span></label>
-            <input type="text" id="nameEvent" name="name" class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" tabindex="1">
+            <input type="text" id="nameEvent" name="name" class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" tabindex="1" value="{{ old('name') }}">
             @error('name')
                 <div class="text-red-500 text-sm">{{ $message }}</div>
             @enderror
@@ -80,21 +80,36 @@
     
         <!-- Radio Buttons -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div>
-                <label class="flex items-center gap-2">
-                    <input type="radio" name="paymentType" value="free" 
-                           class="rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500" 
-                           checked>
-                    Gratuito
-                </label>
-                <label class="flex items-center gap-2">
-                    <input type="radio" name="paymentType" value="paid" 
-                           class="rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-                    Pago
-                </label>
-                @error('paymentType')
-                    <div class="text-red-500 text-sm">{{ $message }}</div>
-                @enderror
+            <div class="flex">
+                <div class="w-[40%]">
+                    <label class="block text-gray-700 mb-2">Tipo de Evento <span class="text-red-500">*</span></label>
+                        <input type="radio" name="paymentType" value="free" id="freeRadio"
+                            class="rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                            checked>
+                        Gratuito
+
+                    <label class="flex items-center gap-2">
+                        <input type="radio" name="paymentType" value="paid" id="paidRadio" 
+                            class="rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        Pago
+                    </label>
+                    @error('paymentType')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="w-[60%] inputPrice hidden">
+                    <label class="block text-gray-700 mb-2" for="price">
+                        Precio <span class="text-red-500">*</span>
+                    </label>
+                    <input type="number" id="price" name="price" class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" tabindex="2">
+                    @error('price')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
+                    @session('error')
+                        <div class="text-red-500 text-sm">{{ session('error') }}</div>
+                    @enderror
+                </div>
             </div>
 
             <!-- Imagen -->

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('endDate');
             $table->time('endTime');
             $table->enum('paymentType', ['free', 'paid'])->default('free');
+            $table->integer('price')->default(0);
             $table->string('image')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

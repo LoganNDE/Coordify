@@ -48,7 +48,13 @@
                                     <span class="viewDate">{{ $event['startDate'] }}</span>
                                     <span class="viewTime"> {{ $event['startTime'] }}</span>
                                 </div>
-                                <span>0€</span>
+                                <span class="price">
+                                    @if ($event['price'] == 0)
+                                        Gratuito
+                                    @else
+                                        {{ $event['price'] }}€
+                                    @endif
+                                </span>
                             </div>
                         </div>
                     @endforeach
