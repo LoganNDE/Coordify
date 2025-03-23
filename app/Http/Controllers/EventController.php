@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Administrator;
+use App\Models\Category;
 use App\Models\Event;
 use App\Models\EventArchive;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-
-use function Laravel\Prompts\error;
 
 class EventController extends Controller
 {
@@ -23,9 +22,16 @@ class EventController extends Controller
     $this->middleware('auth:web,admin')->except(['login', 'getPublicEvents']);
     }
 
-    public function getPublicEvents() {
-        $events = Event::get();
-        return view('front.index', compact('events'));
+    public function getPublicEvents(Request $request) {
+        if($request->get('category')){
+            $category_id = Category::where('name', $request->get('category'))->value('id');
+            $events = Event::where('category_id', $category_id)->get();
+        }else{
+            $events = Event::get();
+        }
+        $categories = Category::all();
+
+        return view('front.index', compact('events', 'categories'));
     }
 
     public function index()
@@ -51,6 +57,11 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+
+        if($request->input('price') == null){
+            $request->merge(['price' => 0]);
+        }
+        
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'province' => 'required|string|max:255',
@@ -63,8 +74,14 @@ class EventController extends Controller
             'price' => 'required|integer',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'nullable|string',
+            'categories' => 'required|in:ocio,arte,deportes,negocios,entretenimiento,gastronomía,naturaleza,bienestar,educación,gaming,tecnología',
             'user_id' =>    'required'
         ]);
+
+        $category_id = Category::where('name', $request->input('categories'))->value('id');
+        $validatedData['category_id'] = $category_id;
+
+
 
         if ($request->input('paymentType') == 'free' && $request->input('price') > 0){
             return redirect()->route('events.create')->with('error', 'Los evetos gratuitos no pueden tener precio');

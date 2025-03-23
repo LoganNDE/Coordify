@@ -11,6 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('image');
+            $table->timestamps();
+        });
+
+
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -22,10 +30,12 @@ return new class extends Migration
             $table->date('endDate');
             $table->time('endTime');
             $table->enum('paymentType', ['free', 'paid'])->default('free');
-            $table->integer('price')->default(0);
+            $table->integer('price')->default(0)->nullable();
             $table->string('image')->nullable();
+            $table->unsignedBigInteger('category_id')->default(1);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
 

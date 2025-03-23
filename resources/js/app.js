@@ -15,6 +15,7 @@ window.onload = () =>{
     const viewDate = document.querySelectorAll('.viewDate');
     const paidRadio = document.getElementById('paidRadio');
     const freeRadio = document.getElementById('freeRadio');
+    const inputCategories = document.getElementById('inputCategories');
 
     if (error) {
       const Toast = Swal.mixin({
@@ -160,6 +161,29 @@ window.onload = () =>{
             priceCase.classList.add('hidden')
           }
       }
+    }
+
+    if (inputCategories){
+        let request = fetch('/data/api/getcategories')
+        request.then((response)=>{
+          if (!response.ok){
+            console.log('Ha surgido un error')
+          }
+
+          let data = response.json();
+          data.then((response)=>{
+            console.log(response.data)
+            response.data.forEach(category => {
+              let option = document.createElement( 'option' );
+              option.value = option.text = category['name'];
+              option.style.textTransform = 'capitalize';
+              inputCategories.style.textTransform = 'capitalize';
+              inputCategories.add(option);
+            });
+          })
+
+        })
+        
     }
 
 

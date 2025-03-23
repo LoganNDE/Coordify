@@ -31,24 +31,37 @@
                         ></path>
                         </svg>
                 </button>
-                <input class="input rounded-full w-[600px] px-8 py-3 border-2 border-transparent focus:outline-none focus:border-blue-500 placeholder-gray-400 transition-all duration-300 shadow"
+                <input class="input rounded-full w-[600px] px-8 py-3 border-2 border-transparent focus:outline-none focus:border-blue-500 placeholder-gray-400 transition-all duration-300 shadow-xs inset-shadow-xs"
                 placeholder="Search..."
                 required=""
                 type="text"/>
             </section>
 
-            <section class="main main flex-1 flex justify-center">
-                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-[repeat(5,_300px)] gap-4 w-[90%] justify-center">
+            <section class="categories flex justify-center">
+                <div class="my-3 flex gap-12 justify-center">
+                    @foreach ($categories as $category)
+                    <a href="{{ route('events.public', ['category' => $category['name']]) }}">
+                        <div class="flex justify-center items-center flex-col">
+                            <img class="w-[36px]" src="{{ asset($category['image']) }}" alt="{{ $category['name'] }}">
+                            <p class="text-[14px] capitalize">{{ $category['name'] }}</p>
+                        </div>
+                    </a>
+                    @endforeach
+                </div>
+            </section>
+
+            <section class="main main flex-1 flex justify-center mt-10 mb-5">
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 w-[100%] justify-center">
                     @foreach ($events as $event)
-                        <div class="p-4">
+                        <div>
                             <img class="bg-white w-full h-[250px] object-cover object-center rounded-lg" src="{{ Storage::url($event['image']) }}" alt="{{ $event['name'] }}">
                             <div class="infoEvent">
-                                <h3 class="mt-6 nameEvent">{{ $event['name'] }}</h3>
-                                <div class="mt-3 infoDate flex justify-between">
+                                <h3 class="mt-3 nameEvent">{{ $event['name'] }}</h3>
+                                <div class="mt-1 infoDate flex justify-between">
                                     <span class="viewDate">{{ $event['startDate'] }}</span>
                                     <span class="viewTime"> {{ $event['startTime'] }}</span>
                                 </div>
-                                <span class="price">
+                                <span class="price text-rich-black font-bold">
                                     @if ($event['price'] == 0)
                                         Gratuito
                                     @else
@@ -63,7 +76,7 @@
         </div>
     </div>
 
-    <footer class="bg-red-100 min-h-[5vh]">
-        <p>Desarrollado por Logan Naranjo</p>
+    <footer class="bg-black min-h-[5vh] flex justify-center items-center">
+        <p class="text-white">Desarrollado por Logan Naranjo</p>
     </footer>
 @endsection

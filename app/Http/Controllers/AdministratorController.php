@@ -14,7 +14,7 @@ class AdministratorController extends Controller
     {
         //Si queremos utilizar property_existe, debemos de asegurarnos previamente que el usuario este logeado;
         if (auth()->check() && !property_exists(auth()->user(), 'user_id')){
-            return view('app.newadmin');
+            return view('back.newadmin');
         }else{
             return redirect()->route('events.index')->with('error','No tienes permisos para agregar administradores');
         }

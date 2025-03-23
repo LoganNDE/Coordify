@@ -3,6 +3,9 @@
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Resources\Categories;
+use App\Http\Resources\CategoriesResource;
+use App\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 
@@ -26,3 +29,7 @@ Route::post('settings', [UsuarioController::class, 'updateDetails'])->name('user
 Route::post('settings/password', [UsuarioController::class, 'updatePassword'])->name('user.updatePassword');
 
 
+
+Route::get('data/api/getcategories', function () {
+    return CategoriesResource::collection(Category::all());
+});

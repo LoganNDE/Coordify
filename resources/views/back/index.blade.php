@@ -30,9 +30,9 @@
             </div>
         </section>
         
-        <section class="events w-full max-h-[100%] h-[100%] flex lg:flex-row flex-col gap-3">
-            <div class="containerEventList lg:w-5/6 lg:h-full h-[300px] w-full flex overflow-auto">
-                <div class="flex flex-col gap-3 w-full p-3 rounded-md bg-gray-100 items-center">
+        <section class="events w-full max-h-[80%] h-[80%] flex lg:flex-row flex-col gap-3">
+            <div class="containerEventList lg:w-5/6 lg:h-full h-[300px] w-full flex overflow-auto bg-gray-100 rounded-md">
+                <div class="flex flex-col gap-3 w-full p-3 items-center">
                         @forelse ($events as $event)
                         <div class="info flex w-full justify-between p-3 rounded-lg bg-gray-200">
                                 <span class="nameEvent">{{ $event['name'] }}</span>
@@ -58,13 +58,13 @@
 
                         @if ($mainAdmin->name != auth()->user()->name)
                             <div class="infoAdmin flex items-center gap-4">
-                                <img class="w-10 h-10 rounded-full object-cover object-top" src="{{ isset($mainAdmin->image) ? Storage::url($mainAdmin->image) : '/img/default.png' }}" alt="{{ $mainAdmin->name }} photo">
+                                <img class="w-10 h-10 rounded-full object-cover object-top" src="{{ isset($mainAdmin->image) ? Storage::url($mainAdmin->image) : asset('img/default.png') }}" alt="{{ $mainAdmin->name }} photo">
                                 <span class="userName adminUser" >{{ $mainAdmin->name }} </span>
                             </div>
                         @endif
 
                         <div class="infoAdmin flex items-center gap-4">
-                                <img class="w-10 h-10 rounded-full object-cover object-top" src="{{ isset(auth()->user()->image) ? Storage::url(auth()->user()->image) : '/img/default.png' }}" alt="{{ auth()->user()->name }} photo">
+                                <img class="w-10 h-10 rounded-full object-cover object-top" src="{{ isset(auth()->user()->image) ? Storage::url(auth()->user()->image) : asset('img/default.png') }}" alt="{{ auth()->user()->name }} photo">
                                 <span class="userName" >{{ auth()->user()->name }} </span>
                                 <span class="active ml-2"></span>
                             </div>
