@@ -56,3 +56,19 @@ body{
 .userName{
     text-transform: capitalize;
 }
+
+.splide:not(.is-overflow) .splide__arrows {
+    display: none;
+  }
+
+.splide__pagination{
+    bottom: -1.5em !important;
+}
+
+.splide__arrow--next{
+    right: -1.5em !important;
+}
+
+.splide__arrow--prev{
+    left: -1.5em !important;
+}

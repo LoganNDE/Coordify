@@ -31,23 +31,29 @@
                         ></path>
                         </svg>
                 </button>
-                <input class="input rounded-full w-[600px] px-8 py-3 border-2 border-transparent focus:outline-none focus:border-blue-500 placeholder-gray-400 transition-all duration-300 shadow-xs inset-shadow-xs"
+                <input class="input rounded-full w-full md:w-[300px] lg:w-[600px] px-8 py-3 border-2 border-transparent focus:outline-none focus:border-blue-500 placeholder-gray-400 transition-all duration-300 shadow-xs inset-shadow-xs"
                 placeholder="Search..."
                 required=""
                 type="text"/>
             </section>
 
             <section class="categories flex justify-center">
-                <div class="my-3 flex gap-12 justify-center">
-                    @foreach ($categories as $category)
-                    <a href="{{ route('events.public', ['category' => $category['name']]) }}">
-                        <div class="flex justify-center items-center flex-col">
-                            <img class="w-[36px]" src="{{ asset($category['image']) }}" alt="{{ $category['name'] }}">
-                            <p class="text-[14px] capitalize">{{ $category['name'] }}</p>
-                        </div>
-                    </a>
-                    @endforeach
-                </div>
+                <section class="splide w-[100%] lg:w-[80%]" aria-label="Splide Basic HTML Example">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            @foreach ($categories as $category)
+                            <li class="splide__slide flex justify-center">
+                                <a href="{{ route('events.public', ['category' => $category['name']]) }}">
+                                    <div class="flex justify-center flex-col items-center">
+                                        <img class="w-[36px]" src="{{ asset($category['image']) }}" alt="{{ $category['name'] }}">
+                                        <p class="text-[14px] capitalize">{{ $category['name'] }}</p>
+                                    </div>
+                                </a>
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </section>
             </section>
 
             <section class="main main flex-1 flex justify-center mt-10 mb-5">

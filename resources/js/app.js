@@ -1,10 +1,36 @@
 import './bootstrap';
 import Swal from 'sweetalert2';
+import Splide from '@splidejs/splide';
+import '@splidejs/splide/css';
 
 window.onload = () =>{
     const mylocalStorage = window.localStorage;
     let error = mylocalStorage.getItem('laravelError');
     let success = mylocalStorage.getItem('successLaravel')
+
+    let splide = new Splide( '.splide', {
+      
+      perPage: 10,
+      breakpoints: {
+        640: {
+          perPage: 4,
+        },
+        768:{
+          perPage: 5,
+        },
+        1200:{
+          perPage: 6,
+        },
+        1400:{
+          perPage: 7,
+        },
+        1600:{
+          perPage: 8,
+        }
+      }
+    });
+    splide.mount();
+
 
 
     //Elementos DOM
