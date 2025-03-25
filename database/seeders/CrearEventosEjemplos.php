@@ -24,6 +24,7 @@ class CrearEventosEjemplos extends Seeder
         $event->endTime = '22:00:00';
         $event->paymentType = 'free';
         $event->image = 'events/uqbitTmVNcJOihz43NWzTz3uiySrIe1Kk6hs9mCw.jpg';
+        $event->community = 'Comunidad De Madrid';
         $event->user_id = 2;
         $event->save();
 
@@ -39,6 +40,7 @@ class CrearEventosEjemplos extends Seeder
         $event->endTime = '12:21:00';
         $event->paymentType = 'free';
         $event->image = 'events/ocW5r3p7AujmM1nsJPajab7yXdLVolR7SVUtgqkO.png';
+        $event->community = 'Comunidad De Madrid';
         $event->user_id = 2;
         $event->save();
 
@@ -54,6 +56,7 @@ class CrearEventosEjemplos extends Seeder
         $event->endTime = '12:21:00';
         $event->paymentType = 'free';
         $event->image = 'events/DlEy8sO8mCCIxG5FWVH7N1H7tfTTBn1v2vzKd6mg.png';
+        $event->community = 'Comunidad De Madrid';
         $event->user_id = 2;
         $event->save();
 
@@ -69,6 +72,7 @@ class CrearEventosEjemplos extends Seeder
         $event->endTime = '21:22:00';
         $event->paymentType = 'free';
         $event->image = 'events/5BDqlaimDtvwFFpQnpjFEu8qWoIrJBcx5FmIvR8d.jpg';
+        $event->community = 'Comunidad De Madrid';
         $event->user_id = 2;
         $event->save();
 
@@ -84,6 +88,7 @@ class CrearEventosEjemplos extends Seeder
         $event->endTime = '21:21:00';
         $event->paymentType = 'free';
         $event->image = 'events/OSKmmaIZSks4YVga1GavkfS7Icc3T2nQu6zl9LQU.jpg';
+        $event->community = 'Comunidad De Madrid';
         $event->user_id = 2;
         $event->save();
 
@@ -99,6 +104,7 @@ class CrearEventosEjemplos extends Seeder
         $event->endTime = '12:21:00';
         $event->paymentType = 'free';
         $event->image = 'events/OBqf1vr12iUhUtX5NyyDQdPwj61mxUTu12ipoKRZ.jpg';
+        $event->community = 'Comunidad De Madrid';
         $event->user_id = 2;
         $event->save();
     }

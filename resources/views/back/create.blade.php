@@ -16,7 +16,7 @@
         </div>
 
 
-        <!-- Provincia y Dirección -->
+        <!-- Categoria y Comunidad Autónoma -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
                 <label class="block text-gray-700 mb-2" for="inputCategories">
@@ -24,6 +24,16 @@
                 </label>
                 <select id="inputCategories" name="categories" class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" tabindex="2"></select>
                 @error('categories')
+                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div>
+                <label class="block text-gray-700 mb-2" for="community">
+                    Comunidad autónoma <span class="text-red-500">*</span>
+                </label>
+                <select id="communityList" name="community" class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" tabindex="2"></select>
+                @error('community')
                     <div class="text-red-500 text-sm">{{ $message }}</div>
                 @enderror
             </div>

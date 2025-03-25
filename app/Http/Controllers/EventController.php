@@ -26,6 +26,8 @@ class EventController extends Controller
         if($request->get('category')){
             $category_id = Category::where('name', $request->get('category'))->value('id');
             $events = Event::where('category_id', $category_id)->get();
+        }else if($request->get('community')){
+            $events = Event::where('community', $request->get('community'))->get();
         }else{
             $events = Event::get();
         }
@@ -75,6 +77,7 @@ class EventController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'nullable|string',
             'categories' => 'required|in:ocio,arte,deportes,negocios,entretenimiento,gastronomía,naturaleza,bienestar,educación,gaming,tecnología',
+            'community' => 'required|in:La Rioja,Castilla y León,Ciudad Autónoma de Melilla,Comunidad de Madrid,Andalucía,Illes Balears,Aragón,Galicia,Principado de Asturias,Castilla-La Mancha,Cantabria,Ciudad Autónoma de Ceuta,País Vasco,Comunidad Foral de Navarra,Región de Murcia,Cataluña,Comunitat Valenciana,Canarias,Extremadura',
             'user_id' =>    'required'
         ]);
 

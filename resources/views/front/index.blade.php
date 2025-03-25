@@ -35,22 +35,37 @@
                 placeholder="Search..."
                 required=""
                 type="text"/>
+                <select id="communityList" class="rounded-full px-4 py-3 border-2 border-transparent focus:outline-none focus:border-blue-500 placeholder-gray-400 transition-all duration-300 shadow-xs inset-shadow-xs " name="province" id="province">
+                </select>
             </section>
 
-            <section class="categories flex justify-center">
+            @if (request()->input('community') || request()->input('category'))
+            <section>
+                <span>
+                    {{ request()->input('community') }}
+                </span>
+
+                <span>
+                    {{ request()->input('category') }}
+                </span>
+            </section>
+            @endif
+
+            <section class="my-6 categories flex justify-center">
                 <section class="splide w-[100%] lg:w-[80%]" aria-label="Splide Basic HTML Example">
                     <div class="splide__track">
                         <ul class="splide__list">
-                            @foreach ($categories as $category)
+                        @foreach ($categories as $category)
                             <li class="splide__slide flex justify-center">
                                 <a href="{{ route('events.public', ['category' => $category['name']]) }}">
-                                    <div class="flex justify-center flex-col items-center">
+                                    <div class="flex justify-center flex-col items-center category-logo">
                                         <img class="w-[36px]" src="{{ asset($category['image']) }}" alt="{{ $category['name'] }}">
+                                        <span class="background-categories"></span>
                                         <p class="text-[14px] capitalize">{{ $category['name'] }}</p>
                                     </div>
                                 </a>
                             </li>
-                            @endforeach
+                    @endforeach
                         </ul>
                     </div>
                 </section>
@@ -60,7 +75,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 w-[100%] justify-center">
                     @foreach ($events as $event)
                         <div>
-                            <img class="bg-white w-full h-[250px] object-cover object-center rounded-lg" src="{{ Storage::url($event['image']) }}" alt="{{ $event['name'] }}">
+                            <img class="bg-white w-full h-[250px] object-cover object-center rounded-lg" src="{{ isset($event['image']) ? Storage::url($event['image']) : asset('/img/default-event.png') }}" alt="{{ $event['name'] }}">
                             <div class="infoEvent">
                                 <h3 class="mt-3 nameEvent">{{ $event['name'] }}</h3>
                                 <div class="mt-1 infoDate flex justify-between">

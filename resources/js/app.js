@@ -8,30 +8,31 @@ window.onload = () =>{
     let error = mylocalStorage.getItem('laravelError');
     let success = mylocalStorage.getItem('successLaravel')
 
-    let splide = new Splide( '.splide', {
-      
-      perPage: 10,
-      breakpoints: {
-        640: {
-          perPage: 4,
-        },
-        768:{
-          perPage: 5,
-        },
-        1200:{
-          perPage: 6,
-        },
-        1400:{
-          perPage: 7,
-        },
-        1600:{
-          perPage: 8,
+
+    if (document.querySelector('.splide')){
+      let splide = new Splide( '.splide', {
+        perPage: 10,
+        breakpoints: {
+          640: {
+            perPage: 4,
+          },
+          768:{
+            perPage: 5,
+          },
+          1200:{
+            perPage: 6,
+          },
+          1400:{
+            perPage: 7,
+          },
+          1600:{
+            perPage: 8,
+          }
         }
-      }
-    });
-    splide.mount();
-
-
+      });
+      splide.mount();
+    }
+  
 
     //Elementos DOM
     const deleteEventBtn = document.querySelectorAll('.btnRemove');
@@ -42,6 +43,7 @@ window.onload = () =>{
     const paidRadio = document.getElementById('paidRadio');
     const freeRadio = document.getElementById('freeRadio');
     const inputCategories = document.getElementById('inputCategories');
+    const communityList = document.getElementById('communityList');
 
     if (error) {
       const Toast = Swal.mixin({
@@ -209,7 +211,52 @@ window.onload = () =>{
           })
 
         })
-        
+    }
+
+    const updateQueryParam = (key, value) => {
+      const url = new URL(window.location.href);
+      url.searchParams.set(key, value); // actualiza o añade
+      window.location.href = url.toString();
+    }
+
+
+    const filterForCommunity = (event) => {
+      updateQueryParam('community', event.target.text);
+    }
+    
+    //CCAA = COMUNIDAD AUTONOMA
+    const getAllCCAA = async () =>{
+      try{
+        let request = await fetch('https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/georef-spain-comunidad-autonoma/records?limit=30')
+
+        if (!request.ok){
+          console.log('Ha surgido un error')
+        }
+
+        let data = await request.json();
+        console.log(data.results)
+        data.results.forEach(ccaa => {
+          if (ccaa.acom_name != 'Territorio no asociado a ninguna autonomía'){
+            let option = document.createElement('option');
+            option.value = option.text = ccaa.acom_name;
+
+            option.style.textTransform = 'capitalize';
+            communityList.style.textTransform = 'capitalize';
+            communityList.add(option);
+            if (document.querySelector('.splide')){
+              option.addEventListener('click', filterForCommunity)
+            }
+          }
+        });
+      
+      }catch(error){
+        console.log(error)
+      }
+
+    }
+
+    if (communityList){
+      getAllCCAA();
     }
 
 

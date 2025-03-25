@@ -23,6 +23,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->text('community');
             $table->string('province');
             $table->string('address');
             $table->date('startDate');
