@@ -24,8 +24,8 @@ class paymentController extends Controller
                 'price_data' => [
                     'currency' => 'eur',
                     'product_data' => [
-                        'name' => $event['name'],
                         'images' => [asset(Storage::url($event['image']))],
+                        'name' => $event['name'],
                         'description' => $event['description'],
                         
                     ],
