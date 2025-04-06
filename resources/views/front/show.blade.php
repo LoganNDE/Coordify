@@ -4,6 +4,9 @@
 @section('content')
     <div class="w-full flex flex-col items-center mt-10">
         <div class="bg-gray-100 h-[80%] w-[95%] lg:w-[80%] rounded-lg">
+            @if (session('error'))
+                <p class="p-4 text-red-600 text-center">{{ session('error') }}</p>
+            @endif
             <a class="mt-3 ml-3 px-6 py-3 inline-block bg-gray-300 rounded-lg" href="{{ route('events.public') }}"><- Atras</a>
             <div class="grid grid-cols-1 lg:grid-cols-[500px_1fr] gap-4 h-full p-10">
                 <div class="flex flex-col justify-center items-center">

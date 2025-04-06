@@ -35,10 +35,16 @@ class paymentController extends Controller
             ]],
             'mode' => 'payment',
             'success_url' => route('checkout.success'),
-            'cancel_url' => route('checkout.cancel'),
+            'cancel_url' => route('checkout.cancel', ['id' => $event['id']]),
         ]);
     
         return redirect($session->url);
+    }
+
+
+    public function cancelCheckout(String $id)
+    {
+        return redirect()->route('events.showPublic', ['id' => $id])->with('error', "El pago ha fallado, Vuelva a intentarlo");
     }
     
 }
