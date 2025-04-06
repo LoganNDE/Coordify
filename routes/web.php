@@ -40,10 +40,7 @@ Route::get('/checkout/success', function () {
     return 'Pago realizado con éxito.';
 })->name('checkout.success');
 
-Route::get('/checkout/cancel', function () {
-    return 'Pago cancelado.';
-})->name('checkout.cancel');
-
+Route::get('/checkout/cancel/{id}', [paymentController::class, 'cancelCheckout'])->name('checkout.cancel');
 
 Route::get('data/api/getcategories', function () {
     return CategoriesResource::collection(Category::all());
