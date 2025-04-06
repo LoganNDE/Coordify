@@ -19,7 +19,7 @@ class EventController extends Controller
 
     public function __construct()
     {
-    $this->middleware('auth:web,admin')->except(['login', 'getPublicEvents']);
+    $this->middleware('auth:web,admin')->except(['login', 'getPublicEvents', 'publicShow']);
     }
 
     public function getPublicEvents(Request $request) {
@@ -106,6 +106,12 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
+    public function publicShow(string $id)
+    {
+        $event = Event::findOrFail($id);
+        return view('front.show', compact('event'));
+    }
+
     public function show(string $id)
     {
         //

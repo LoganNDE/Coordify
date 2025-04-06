@@ -2,13 +2,16 @@
 
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\paymentController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Resources\Categories;
 use App\Http\Resources\CategoriesResource;
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 
+Route::get('events/view/{id}', [EventController::class, 'publicShow'])->name('events.showPublic');
 Route::get('events/newadmin', AdministratorController::class)->name('events.newadmin');
 Route::post('events/newadmin', [AdministratorController::class, 'newadmin'])->name('events.newadmin');
 Route::get('events/archive/{id}', [EventController::class, 'archive'])->name('events.archive');
@@ -28,6 +31,18 @@ Route::post('event/import', [EventController::class, 'importEvent']);
 Route::post('settings', [UsuarioController::class, 'updateDetails'])->name('user.updateDetails');
 Route::post('settings/password', [UsuarioController::class, 'updatePassword'])->name('user.updatePassword');
 
+
+// Checkout
+
+Route::get('events/checkout/{id}', [PaymentController::class, 'checkout'])->name('payment.checkout');
+
+Route::get('/checkout/success', function () {
+    return 'Pago realizado con éxito.';
+})->name('checkout.success');
+
+Route::get('/checkout/cancel', function () {
+    return 'Pago cancelado.';
+})->name('checkout.cancel');
 
 
 Route::get('data/api/getcategories', function () {

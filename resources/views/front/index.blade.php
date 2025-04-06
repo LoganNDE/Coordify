@@ -1,15 +1,9 @@
-@extends('_partials.layout-front')
+@extends('_partials.layout-public')
 
 @section('titlePage', 'Inicio')
 @section('content')
     <div class="min-h-[95vh] w-full flex flex-col items-center">
         <div class="app w-[80%]">
-            <header class="w-full h-[100px] flex justify-between items-center">
-                <div>Coordify</div>
-                <div>
-                    <a class=" px-6 rounded-full py-3 bg-primary text-smoke" href="{{ route('events.index') }}">Crear evento</a>
-                </div>
-            </header>
             <section class="searchBar w-full h-[100px] flex items-end justify-center py-3">
                 <form class="form relative">
                     <button class="absolute left-2 -translate-y-1/2 top-1/2 p-1">
@@ -75,21 +69,23 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 w-[100%] justify-center">
                     @foreach ($events as $event)
                         <div>
-                            <img class="bg-white w-full h-[250px] object-cover object-center rounded-lg" src="{{ isset($event['image']) ? Storage::url($event['image']) : asset('/img/default-event.png') }}" alt="{{ $event['name'] }}">
-                            <div class="infoEvent">
-                                <h3 class="mt-3 nameEvent">{{ $event['name'] }}</h3>
-                                <div class="mt-1 infoDate flex justify-between">
-                                    <span class="viewDate">{{ $event['startDate'] }}</span>
-                                    <span class="viewTime"> {{ $event['startTime'] }}</span>
+                            <a href="{{ route('events.showPublic', $event['id']) }}">
+                                <img class="bg-white w-full h-[250px] object-cover object-center rounded-lg" src="{{ isset($event['image']) ? Storage::url($event['image']) : asset('/img/default-event.png') }}" alt="{{ $event['name'] }}">
+                                <div class="infoEvent">
+                                    <h3 class="mt-3 nameEvent">{{ $event['name'] }}</h3>
+                                    <div class="mt-1 infoDate flex justify-between">
+                                        <span class="viewDate">{{ $event['startDate'] }}</span>
+                                        <span class="viewTime"> {{ $event['startTime'] }}</span>
+                                    </div>
+                                    <span class="price text-rich-black font-bold">
+                                        @if ($event['price'] == 0)
+                                            Gratuito
+                                        @else
+                                            {{ $event['price'] }}€
+                                        @endif
+                                    </span>
                                 </div>
-                                <span class="price text-rich-black font-bold">
-                                    @if ($event['price'] == 0)
-                                        Gratuito
-                                    @else
-                                        {{ $event['price'] }}€
-                                    @endif
-                                </span>
-                            </div>
+                            </a>
                         </div>
                     @endforeach
                 </div>
