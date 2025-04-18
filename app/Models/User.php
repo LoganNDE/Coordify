@@ -18,6 +18,10 @@ class User extends Authenticatable
         return $this->hasMany(Administrator::class);
     }
 
+    public function subscription(){
+        return $this->belongsTo(Subscription::class);
+    }
+
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 

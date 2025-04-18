@@ -2,9 +2,9 @@
 
 @section('titlePage', 'Inicio')
 @section('content')
-    <div class="min-h-[95vh] w-full flex flex-col items-center">
-        <div class="app w-[80%]">
-            <section class="searchBar w-full h-[100px] flex items-end justify-center py-3">
+    <div class="w-full flex flex-col items-center">
+        <div class="app w-[85%] lg:w-[80%]">
+            <section class="searchBar w-full lg:h-[100px] flex items-end justify-center pb-3 lg:py-3">
                 <form class="form relative">
                     <button class="absolute left-2 -translate-y-1/2 top-1/2 p-1">
                         <svg
@@ -29,7 +29,7 @@
                 placeholder="Search..."
                 required=""
                 type="text"/>
-                <select id="communityList" class="rounded-full px-4 py-3 border-2 border-transparent focus:outline-none focus:border-blue-500 placeholder-gray-400 transition-all duration-300 shadow-xs inset-shadow-xs " name="province" id="province">
+                <select id="communityList" class="hidden lg:inline rounded-full px-4 py-3 border-2 border-transparent focus:outline-none focus:border-blue-500 placeholder-gray-400 transition-all duration-300 shadow-xs inset-shadow-xs " name="province" id="province">
                 </select>
             </section>
 
@@ -51,7 +51,7 @@
                         <ul class="splide__list">
                         @foreach ($categories as $category)
                             <li class="splide__slide flex justify-center">
-                                <a href="{{ route('events.public', ['category' => $category['name']]) }}">
+                                <a href="{{ route('front.index', ['category' => $category['name']]) }}">
                                     <div class="flex justify-center flex-col items-center category-logo">
                                         <img class="w-[36px]" src="{{ asset($category['image']) }}" alt="{{ $category['name'] }}">
                                         <span class="background-categories"></span>
@@ -92,8 +92,4 @@
             </section>
         </div>
     </div>
-
-    <footer class="bg-black min-h-[5vh] flex justify-center items-center">
-        <p class="text-white">Desarrollado por Logan Naranjo</p>
-    </footer>
 @endsection

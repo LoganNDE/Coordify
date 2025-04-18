@@ -22,20 +22,6 @@ class EventController extends Controller
     $this->middleware('auth:web,admin')->except(['login', 'getPublicEvents', 'publicShow']);
     }
 
-    public function getPublicEvents(Request $request) {
-        if($request->get('category')){
-            $category_id = Category::where('name', $request->get('category'))->value('id');
-            $events = Event::where('category_id', $category_id)->get();
-        }else if($request->get('community')){
-            $events = Event::where('community', $request->get('community'))->get();
-        }else{
-            $events = Event::get();
-        }
-        $categories = Category::all();
-
-        return view('front.index', compact('events', 'categories'));
-    }
-
     public function index()
     {
         $mainAdmin_id = isset(auth()->user()->user_id) ? auth()->user()->user_id : auth()->user()->id;
@@ -183,10 +169,7 @@ class EventController extends Controller
     public function importEvent(Request $request)
     {   
 
-
-        //VALIDAR REQUEST, COMPROBAR SI HACE EL RESPONSE EN JSON EN CASO QUE LA VALIDACION SEA ERRONEA
-        
-
+        //VALIDAR REQUEST, COMPROBAR SI HACE EL RESPONSE EN JSON EN CASO QUE LA VALIDACION SEA ERRONEA        
         
         try{
             dd($request->file);

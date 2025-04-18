@@ -16,4 +16,11 @@ class Event extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
+
+    public function participants()
+    {
+        return $this->belongsToMany(Participant::class, 'checkins')
+            ->withTimestamps()
+            ->withPivot('scanned_at');
+    }
 }
