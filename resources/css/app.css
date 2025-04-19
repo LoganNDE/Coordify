@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../**/*.vue";
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --color-primary: #18cb96;
+    --color-secundary: #373643;
+    --color-auxiliar: #e1efe6;
+    --color-ash-gray: #aeb7b3;
+    --color-rich-black: #000411;
+}
+
+@layer utilities {
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  
+    .animate-float {
+      animation: float 3s ease-in-out infinite;
+    }
+  }
+
+*{
+    font-family: "Poppins", serif;
+    font-style: normal;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+}
+
+.userName{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    max-width: 100px;
+}
+
+.adminUser::after{
+    content: '⭐';
+}
+
+.nameEvent{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    width: 265px;
+}
+
+.active{
+    display: inline-block;
+    min-width: 10px;
+    min-height: 10px;
+    border-radius: 10px;
+    background-color: rgb(5, 199, 5);
+    margin-left: -2px;
+}
+
+.userName{
+    text-transform: capitalize;
+}
+
+.splide:not(.is-overflow) .splide__arrows {
+    display: none;
+  }
+
+.splide__pagination{
+    bottom: -1.5em !important;
+}
+
+.splide__arrow--next{
+    right: -1.5em !important;
+}
+
+.splide__arrow--prev{
+    left: -1.5em !important;
+}
+
+.background-categories {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35px;
+    height: 35px;
+    border-radius: 45px;
+    background-color: rgba(102, 51, 153, 0.438);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: -1;
+}
+
+.category-logo:hover .background-categories {
+    opacity: 1;
+    background-color: rgba(102, 51, 153, 0.438);
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+SELECT {
+    background: url("data:image/svg+xml,<svg height='10px' width='10px' viewBox='0 0 16 16' fill='%23000000' xmlns='http://www.w3.org/2000/svg'><path d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/></svg>") no-repeat;
+    background-position: calc(100% - 0.75rem) center !important;
+    -moz-appearance:none !important;
+    -webkit-appearance: none !important; 
+    appearance: none !important;
+    padding-right: 2rem !important;
+}

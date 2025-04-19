@@ -1,0 +1,2 @@
+name,description,province,address,startDate,startTime,endDate,endTime,paymentType,image
+Evento de ejemplo,Descripción del evento,Madrid,Calle Ejemplo 123,2025-06-15,18:00:00,2025-06-15,22:00:00,free,imagen.jpg

@@ -1,0 +1,136 @@
+@extends('_partials.layout')
+@section('titlePage', 'Editar evento')
+
+@section('content')
+    <form class="md:w-5/6 sm:w-5/6 lg:w-4/6 bg-white rounded-lg shadow-md p-6" action="{{ route('events.update', $event['id']) }}" method="post" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        <input type="text" name="user_id" value="{{ auth()->user()->id }}" hidden>
+        <!-- Nombre -->
+        <div class="mb-6">
+            <label class="block text-gray-700 mb-2" for="name">Nombre<span class="text-red-500">*</span></label>
+            <input type="text" id="nameEvent" name="name" class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" value="{{ old('name', $event['name']) }}">
+            @error('name')
+                <div class="text-red-500 text-sm">{{ $message }}</div>
+            @enderror
+        </div>
+    
+        <!-- Provincia y Dirección -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label class="block text-gray-700 mb-2" for="province">
+                    Provincia <span class="text-red-500">*</span>
+                </label>
+                <input type="text" id="province" name="province" class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" value="{{ old('province', $event['province']) }}">
+                @error('province')
+                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                @enderror
+            </div>
+            <div>
+                <label class="block text-gray-700 mb-2" for="address">
+                    Dirección <span class="text-red-500">*</span>
+                </label>
+                <input type="text" id="address" name="address" class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" value="{{ old('address', $event['address']) }}">
+                @error('address')
+                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    
+        <!-- Fechas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="flex gap-3">
+                <div class="w-[50%] 2xl:w-[60%]">
+                    <label class="block text-gray-700 mb-2" for="startDate">
+                        Fecha de inicio <span class="text-red-500">*</span>
+                    </label>
+                    <input type="date" id="startDate" name="startDate" class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" value="{{ old('startDate', $event['startDate']) }}">
+                    @error('startDate')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="w-[50%] 2xl:w-[40%]">
+                    <label for="startTime" class="block text-gray-700 mb-2">Hora de inicio <span class="text-red-500">*</span></label>
+                    <input type="time" name="startTime" id="startTime" class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" value="{{ old('startTime', $event['startTime']) }}">
+                    @error('startTime')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="flex gap-3">
+                <div class="w-[50%] 2xl:w-[60%]">
+                    <label class="block text-gray-700 mb-2" for="endDate">
+                        Fecha de finalización <span class="text-red-500">*</span>
+                    </label>
+                    <input type="date" id="endDate" name="endDate" class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" value="{{ old('endDate', $event['endDate']) }}">
+                    @error('endDate')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="w-[50%] 2xl:w-[40%]">
+                    <label for="endTime" class="block text-gray-700 mb-2">Hora de finalización <span class="text-red-500">*</span></label>
+                    <input type="time" name="endTime" id="endTime" class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" value="{{ old('endTime', $event['endTime']) }}">
+                    @error('endTime')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+        </div>
+    
+        <!-- Radio Buttons -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+                <label class="flex items-center gap-2">
+                    <input type="radio" name="paymentType" value="free" 
+                           class="rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                           @checked(old('paymentType', $event['paymentType']) == 'free')>
+                    Gratuito
+                </label>
+                <label class="flex items-center gap-2">
+                    <input type="radio" name="paymentType" value="paid" 
+                           class="rounded-full border-gray-300 text-blue-600 shadow-sm focus:border-blue-500 focus:ring-blue-500" 
+                           @checked(old('paymentType', $event['paymentType']) == 'paid')>
+                    Pago
+                </label>
+                @error('paymentType')
+                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <!-- Imagen -->
+            <div>
+                <label class="block text-gray-700 mb-2" for="image">
+                    Imagen
+                </label>
+                <input type="file" id="image" name="image" 
+                       class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                @error('image')
+                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+    
+        <!-- Descripción -->
+        <div class="mb-6">
+            <label class="block text-gray-700 mb-2" for="description">
+                Descripción
+            </label>
+            <textarea id="description" name="description" rows="4" 
+                      class="p-2 mt-1 block w-full h-18 max-h-40 min-h-10 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">{{ old('description', $event['description']) }}</textarea>
+            @error('description')
+                <div class="text-red-500 text-sm">{{ $message }}</div>
+            @enderror
+        </div>
+    
+        <!-- Botones finales -->
+        <div class="flex gap-4">
+            <a href="{{ route('events.index') }}" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded-md">
+                Cancelar
+            </a>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                Actualizar
+            </button>
+        </div>
+    </form>
+@endsection
