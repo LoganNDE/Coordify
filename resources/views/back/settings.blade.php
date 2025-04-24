@@ -95,6 +95,18 @@
                         </button>
                     </div>
                 </form>
+
+                @if (auth()->user()->stripe_subscription_id)
+                <div class="containerSubscription py-5"></div>
+                    <h2 class="text-xl font-bold">Administrar suscripción</h2>
+
+                    <p class="pr-2">El upgrade de suscripciones esta en desarrollo. Si deseas cambiar de plan a uno superior o inferior, puedes contactar con soporte y te ayudaremos.</p>
+                    <div class="flex mt-4 gap-5">
+                        <a class="px-4 py-2 bg-primary text-secundary rounded-lg" href="">Contacar</a>
+                        <a class="px-4 py-2 bg-red-200 text-red-800 rounded-lg" href="{{ route('subscription.cancel') }}">Cancelar suscripción</a>
+                    </div>
+                    
+                @endif
             </div>
         </div>
     </div>
