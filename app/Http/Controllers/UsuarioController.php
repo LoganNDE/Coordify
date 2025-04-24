@@ -121,6 +121,6 @@ class UsuarioController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('events.public');
+        return redirect()->route('front.index');
     }
 }

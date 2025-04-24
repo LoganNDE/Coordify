@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(CrearSuscripciones::class);
         $this->call(CrearUsuarioSeeder::class);
         $this->call(CrearCategoriasSeeder::class);
         $this->call(CrearEventosEjemplos::class);

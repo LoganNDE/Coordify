@@ -1,4 +1,4 @@
-@extends('_partials.layout-public')
+@extends('_partials.layout-front')
 
 @section('titlePage', 'Evento')
 @section('content')
@@ -7,7 +7,7 @@
             @if (session('error'))
                 <p class="p-4 text-red-600 text-center">{{ session('error') }}</p>
             @endif
-            <a class="mt-3 ml-3 px-6 py-3 inline-block bg-gray-300 rounded-lg" href="{{ route('events.public') }}"><- Atras</a>
+            <a class="mt-3 ml-3 px-6 py-3 inline-block bg-gray-300 rounded-lg" href="{{ route('front.index') }}"><- Atras</a>
             <div class="grid grid-cols-1 lg:grid-cols-[500px_1fr] gap-4 h-full p-10">
                 <div class="flex flex-col justify-center items-center">
                     <img class="w-[420px] h-[420px] object-cover object-center rounded-lg" src="{{ isset($event['image']) ? Storage::url($event['image']) : asset('/img/default-event.png') }}" alt="{{ $event['name'] }}">

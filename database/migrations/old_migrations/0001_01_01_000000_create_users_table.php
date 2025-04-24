@@ -18,6 +18,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('image')->nullable();
+            $table->unsignedBigInteger('subscription_id')->default(1);
+            $table->foreign('subscription_id')->references('id')->on('subscriptions')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

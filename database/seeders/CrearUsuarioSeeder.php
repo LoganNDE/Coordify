@@ -26,5 +26,12 @@ class CrearUsuarioSeeder extends Seeder
         $user2->password = bcrypt('admin');
         $user2->timestamps = now();
         $user2->save();
+
+        $user3 = new User();
+        $user3->name = 'paco';
+        $user3->email = 'paco@paco.com';
+        $user3->password = bcrypt('admin');
+        $user3->timestamps = now();
+        $user3->save();
     }
 }

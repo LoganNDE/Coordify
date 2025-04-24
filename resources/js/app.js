@@ -2,6 +2,9 @@ import './bootstrap';
 import Swal from 'sweetalert2';
 import Splide from '@splidejs/splide';
 import '@splidejs/splide/css';
+// To use Html5QrcodeScanner (more info below)
+import {Html5QrcodeScanner} from "html5-qrcode";
+
 
 window.onload = () =>{
     const mylocalStorage = window.localStorage;
@@ -44,6 +47,7 @@ window.onload = () =>{
     const freeRadio = document.getElementById('freeRadio');
     const inputCategories = document.getElementById('inputCategories');
     const communityList = document.getElementById('communityList');
+    const QRContainerReader = document.querySelector('.QRContainerReader');
 
     if (error) {
       const Toast = Swal.mixin({
@@ -292,4 +296,86 @@ window.onload = () =>{
         date.textContent = arrDate[2]+'/'+arrDate[1]+'/'+arrDate[0];
       });
     }
+
+    if(QRContainerReader){
+      let html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader",
+        { fps: 10, qrbox: {width: 250, height: 250} },
+        /* verbose= */ false);
+      html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+    
+      async function onScanSuccess(decodedText, decodedResult) {
+        // handle the scanned code as you like, for example:
+        //console.log(`Code matched = ${decodedText}`, decodedResult);
+        if (document.querySelector('meta[name="csrf-token"]').getAttribute('content')){
+          const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+          let response = await fetch('/reader',{
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': csrfToken
+            },
+            body: JSON.stringify({
+              'hash': decodedText
+            })
+          })
+    
+          let result = await response.json();
+          console.log(result);
+          if (result.status == "ok"){
+            html5QrcodeScanner.pause()
+            Swal.fire({
+              title: "Entrada validada",
+              icon: "success",
+              draggable: true,
+              heightAuto: false
+            })
+            .then((result) => {
+              if (result.isConfirmed) {
+                html5QrcodeScanner.resume()
+              }
+            });;
+          }else if (result.status == "error" && result.data == "scanned"){
+            html5QrcodeScanner.pause()
+            Swal.fire({
+              title: "Entrada inválida",
+              icon: "error",
+              html: `Este QR ya ha sido <b>escaneado</b>.`,
+              draggable: true,
+              heightAuto: false
+            })
+            .then((result) => {
+              if (result.isConfirmed) {
+                html5QrcodeScanner.resume()
+              }
+            });;
+          }else{
+            html5QrcodeScanner.pause()
+            Swal.fire({
+              title: "Entrada inválida",
+              icon: "error",
+              html: `La participación de este usuario no se tiene registrada, verifique el origen del QR.`,
+              draggable: true,
+              heightAuto: false
+            })
+            .then((result) => {
+              if (result.isConfirmed) {
+                html5QrcodeScanner.resume()
+              }
+            });;
+          }
+  
+        }else{
+          console.error("Fallo al obtener el token")
+        }
+      }
+      
+      function onScanFailure(error) {
+        // handle scan failure, usually better to ignore and keep scanning.
+        // for example:
+        console.warn(`Code scan error = ${error}`);
+      }
+    }
+
+    
 }

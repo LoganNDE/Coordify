@@ -10,6 +10,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use function PHPUnit\Framework\returnArgument;
 
 class EventController extends Controller
 {
@@ -20,20 +21,6 @@ class EventController extends Controller
     public function __construct()
     {
     $this->middleware('auth:web,admin')->except(['login', 'getPublicEvents', 'publicShow']);
-    }
-
-    public function getPublicEvents(Request $request) {
-        if($request->get('category')){
-            $category_id = Category::where('name', $request->get('category'))->value('id');
-            $events = Event::where('category_id', $category_id)->get();
-        }else if($request->get('community')){
-            $events = Event::where('community', $request->get('community'))->get();
-        }else{
-            $events = Event::get();
-        }
-        $categories = Category::all();
-
-        return view('front.index', compact('events', 'categories'));
     }
 
     public function index()
@@ -51,7 +38,11 @@ class EventController extends Controller
      */
     public function create()
     {
+        if(auth()->user()->events->count() < auth()->user()->subscription->event_limit){
             return view('back.create');
+        }else{
+            return redirect()->route('events.index')->with('error', "Has alcanzado el número de eventos máximos. Aumenta el límite en suscripciones");
+        }
     }
 
     /**
@@ -115,6 +106,11 @@ class EventController extends Controller
     public function show(string $id)
     {
         //
+    }
+
+
+    public function showReader(){
+        return view('back.qr-reader');
     }
 
     /**
@@ -183,10 +179,7 @@ class EventController extends Controller
     public function importEvent(Request $request)
     {   
 
-
-        //VALIDAR REQUEST, COMPROBAR SI HACE EL RESPONSE EN JSON EN CASO QUE LA VALIDACION SEA ERRONEA
-        
-
+        //VALIDAR REQUEST, COMPROBAR SI HACE EL RESPONSE EN JSON EN CASO QUE LA VALIDACION SEA ERRONEA        
         
         try{
             dd($request->file);

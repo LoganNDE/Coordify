@@ -2,11 +2,10 @@
 @section('titlePage', 'Agregar administrador')
 
 @section('content')
-    <div class="main w-4/6 h-11/12 flex flex-col justify-center gap-5">
+  <div class="p-5 flex gap-3 flex-col w-[85%] lg:w-4/6 h-full justify-center">
     <section>
   <div
-    class="flex bg-white items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-8"
-  >
+    class="flex bg-white items-center justify-center px-4 py-10 sm:px-6 sm:py-16 lg:px-8 lg:py-8">
     <div class="xl:mx-auto xl:w-full shadow-md p-4 xl:max-w-sm 2xl:max-w-md">
       <div class="mb-2 flex justify-center"></div>
       <h2 class="text-center text-2xl font-bold leading-tight text-black">
@@ -61,7 +60,5 @@
       </div>
     </div>
   </div>
-</section>
 
-    </div>
 @endsection

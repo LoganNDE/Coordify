@@ -18,6 +18,16 @@ class User extends Authenticatable
         return $this->hasMany(Administrator::class);
     }
 
+    public function subscription(){
+        return $this->belongsTo(Subscription::class);
+    }
+
+    public function participants()
+    {
+        return $this->hasMany(Participant::class);
+    }
+
+
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
@@ -31,6 +41,7 @@ class User extends Authenticatable
         'email',
         'image',
         'password',
+        'subscription_id'
     ];
 
     /**
