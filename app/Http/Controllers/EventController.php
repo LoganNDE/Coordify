@@ -10,6 +10,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use function PHPUnit\Framework\returnArgument;
 
 class EventController extends Controller
 {
@@ -37,7 +38,11 @@ class EventController extends Controller
      */
     public function create()
     {
+        if(auth()->user()->events->count() < auth()->user()->subscription->event_limit){
             return view('back.create');
+        }else{
+            return redirect()->route('events.index')->with('error', "Has alcanzado el número de eventos máximos. Aumenta el límite en suscripciones");
+        }
     }
 
     /**
@@ -101,6 +106,11 @@ class EventController extends Controller
     public function show(string $id)
     {
         //
+    }
+
+
+    public function showReader(){
+        return view('back.qr-reader');
     }
 
     /**

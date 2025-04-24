@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Participant extends Model
 {
-    protected $fillable = ['name', 'surname', 'email', 'image', 'qr_code', 'status', 'stripe_session_id', 'event_id'];
+    protected $fillable = ['name', 'surname', 'email', 'image', 'qr_code', 'qr_decode' ,'status', 'stripe_session_id', 'event_id'];
 
     
     public function category(){
@@ -21,11 +21,6 @@ class Participant extends Model
     public function events()
     {
         return $this->belongsToMany(Event::class, 'event_participant');
-    }
-
-    public function checkins()
-    {
-        return $this->hasMany(Checkin::class);
     }
 
 }

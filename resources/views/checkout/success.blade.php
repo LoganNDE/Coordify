@@ -1,4 +1,4 @@
-@extends('_partials.layout-public')
+@extends('_partials.layout-front')
 
 @section('titlePage', 'Pago confirmado')
 

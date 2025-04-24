@@ -13,13 +13,25 @@ class FrontController extends Controller
      */
     public function __invoke(Request $request)
     {
-        if($request->get('category')){
-            $category_id = Category::where('name', $request->get('category'))->value('id');
-            $events = Event::where('category_id', $category_id)->get();
-        }else if($request->get('community')){
-            $events = Event::where('community', $request->get('community'))->get();
+        if($request->all()){
+            $query = Event::query();
+
+            foreach ($request->all() as $field => $value) {
+                if (!empty($value)) {
+                    if ($field == 'category'){
+                        $category = Category::where('name', $value)->first();
+                        if ($category){
+                            $query->where('category_id', $category->id);
+                        }
+                    }else{
+                        $query->where($field, $value);
+                    }
+                }
+            }
+            
+            $events = $query->get();          
         }else{
-            $events = Event::get();
+            $events = Event::orderBy('promoted', 'desc')->orderBy('created_at', 'desc')->get();            
         }
         $categories = Category::all();
 

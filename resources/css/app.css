@@ -113,3 +113,28 @@ SELECT {
     appearance: none !important;
     padding-right: 2rem !important;
 }
+
+
+.event{
+    padding: 10px;
+}
+
+.eventPromoted .nameEvent{
+    color: white;
+    font-weight: bold;
+}
+
+.eventPromoted .infoEvent{
+    color: white;
+}
+
+.eventPromoted .priceEvent{
+    color: #18cb96;
+    font-weight: bold;
+}
+
+.eventPromoted{
+    background-color: #373643;
+    border-radius: 10px;
+}
+

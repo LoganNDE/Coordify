@@ -1,4 +1,4 @@
-@extends('_partials.layout-public')
+@extends('_partials.layout-front')
 
 @section('titlePage', 'Inicio')
 @section('content')
@@ -33,15 +33,16 @@
                 </select>
             </section>
 
-            @if (request()->input('community') || request()->input('category'))
-            <section>
-                <span>
-                    {{ request()->input('community') }}
-                </span>
-
-                <span>
-                    {{ request()->input('category') }}
-                </span>
+            @if (request()->all())
+            <section class="filters flex justify-center gap-4">
+                @foreach (request()->all() as $filters)
+                    <span class="rounded-full px-4 py-2 bg-gray-100">{{ $filters }}</span>
+                @endforeach
+                <div class="flex justify-center items-center">
+                    <a href="{{ route('front.index') }}">
+                        <span class="rounded-full px-4 py-2 bg-gray-100 cursor-pointer">X</span>
+                    </a>
+                </div>
             </section>
             @endif
 
@@ -51,7 +52,7 @@
                         <ul class="splide__list">
                         @foreach ($categories as $category)
                             <li class="splide__slide flex justify-center">
-                                <a href="{{ route('front.index', ['category' => $category['name']]) }}">
+                                <a href="{{ route('front.index', array_merge(request()->all(), ['category' => $category['name']])) }}">
                                     <div class="flex justify-center flex-col items-center category-logo">
                                         <img class="w-[36px]" src="{{ asset($category['image']) }}" alt="{{ $category['name'] }}">
                                         <span class="background-categories"></span>
@@ -68,7 +69,7 @@
             <section class="main main flex-1 flex justify-center mt-10 mb-5">
                 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8 w-[100%] justify-center">
                     @foreach ($events as $event)
-                        <div>
+                        <div class="event {{ $event['promoted'] ? 'eventPromoted' : '' }}">
                             <a href="{{ route('events.showPublic', $event['id']) }}">
                                 <img class="bg-white w-full h-[250px] object-cover object-center rounded-lg" src="{{ isset($event['image']) ? Storage::url($event['image']) : asset('/img/default-event.png') }}" alt="{{ $event['name'] }}">
                                 <div class="infoEvent">
@@ -77,7 +78,7 @@
                                         <span class="viewDate">{{ $event['startDate'] }}</span>
                                         <span class="viewTime"> {{ $event['startTime'] }}</span>
                                     </div>
-                                    <span class="price text-rich-black font-bold">
+                                    <span class="priceEvent text-rich-black font-bold">
                                         @if ($event['price'] == 0)
                                             Gratuito
                                         @else

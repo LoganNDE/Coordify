@@ -1,8 +1,14 @@
-@extends('_partials.layout-public')
+@extends('_partials.layout-front')
 
 @section('titlePage', 'Suscripciones')
 
 @section('content')
+    @if(session('error'))
+        <script>
+            mylocalStorage = window.localStorage;
+            mylocalStorage.setItem('laravelError', "{{ session('error') }}");
+        </script>
+    @endif
     <div class="w-full flex flex-col items-center">
         <div class="app w-[85%] lg:w-[80%] flex flex-col items-center">
             

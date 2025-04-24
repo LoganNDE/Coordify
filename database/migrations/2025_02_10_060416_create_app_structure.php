@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('image')->nullable();
             $table->unsignedBigInteger('subscription_id')->default(1);
+            $table->string('stripe_subscription_id')->nullable();
             $table->foreign('subscription_id')->references('id')->on('subscriptions')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
@@ -68,6 +69,7 @@ return new class extends Migration
             $table->enum('paymentType', ['free', 'paid'])->default('free');
             $table->integer('price')->default(0)->nullable();
             $table->string('image')->nullable();
+            $table->boolean('promoted')->default(false);
             $table->unsignedBigInteger('category_id')->default(1);
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -97,8 +99,10 @@ return new class extends Migration
             $table->string('email');
             $table->string('image')->nullable();
             $table->string('qr_code')->nullable();
-            $table->enum('status', ['pending', 'confirmed', 'declined'])->default('pending');
+            $table->string('qr_decode')->nullable();
             $table->string('stripe_session_id');
+            $table->enum('status', ['pending', 'accepted'])->default('pending');
+            $table->timestamp('qr_scanned_at')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -113,15 +117,6 @@ return new class extends Migration
 
             $table->foreign('participant_id')->references('id')->on('participants')->onDelete('cascade');
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
-        });
-
-        Schema::create('checkins', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('participant_id');
-            $table->timestamp('scanned_at')->default(now());
-            $table->timestamps();
-
-            $table->foreign('participant_id')->references('id')->on('participants')->onDelete('cascade');
         });
 
         Schema::create('administrators', function (Blueprint $table) {
@@ -139,7 +134,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('administrators');
-        Schema::dropIfExists('checkins');
         Schema::dropIfExists('event_participant');
         Schema::dropIfExists('participants');
         Schema::dropIfExists('event_archives');
