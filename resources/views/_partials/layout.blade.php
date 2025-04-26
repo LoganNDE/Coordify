@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coordify | @yield('titlePage')</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.svg') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
@@ -24,7 +25,7 @@
             <div class="flex justify-end lg:justify-between items-end w-[50%] lg:w-[70%]">
                 <ul class="hidden lg:flex gap-10 items-center">
                     <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="{{ route('front.index') }}">Inicio</a></li>
-                    <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="">Mis entradas</a></li>
+                    <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="{{ route('front.tickets') }}">Mis entradas</a></li>
                     <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="{{ route('front.subscriptions') }}">Suscripciones</a></li>
                     <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="">Perfil</a></li>
                     <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="{{ route('events.settings') }}">Ajustes</a></li>

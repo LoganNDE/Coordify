@@ -27,25 +27,30 @@
                             <input type="search" id="default-search" class="block w-full p-3 ps-10 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Busca tu evento..." required />
                             <button type="submit" class="cursor-pointer text-white absolute end-2 bottom-1.5 bg-secundary hover:bg-black focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar</button>
                         </div>
+                    </form>
                 </div>
             </section>
             
             <section class="events w-full flex lg:flex-row flex-col gap-3">
                 <div class="containerEventList lg:w-5/6 min-h-[450px] w-full flex overflow-auto bg-gray-100 rounded-md">
                     <div class="flex flex-col gap-3 w-full p-3 items-center">
-                            @forelse ($events as $event)
+                        @forelse ($events as $event)
                             <div class="info flex w-full justify-between p-3 rounded-lg bg-gray-200">
-                                    <span class="nameEvent">{{ $event['name'] }}</span>
-                                    <span>12/24</span>
-                                    <div class="actionBtns flex gap-4">
-                                        <a href="{{ route('events.edit', $event['id']) }}"><img src="img/edit.svg" class="w-7" alt=""></a>
-                                        <a href="{{ route('events.archive', $event['id']) }}"><img src="img/archive.svg" class="w-6" alt=""></a>
-                                        <a href="{{ route('events.delete', $event['id']) }}"><img src="img/delete.svg" class="w-6 btnRemove" alt=""></a>
+                                <a href="{{ route('events.show', $event['id']) }}" class="w-[80%] inline-block">
+                                    <div>
+                                        <span class="nameEvent">{{ $event['name'] }}</span>
+                                        <span>12/24</span>
                                     </div>
+                                </a>
+                                <div class="actionBtns flex gap-4 w-[20%]">
+                                    <a href="{{ route('events.edit', $event['id']) }}"><img src="img/edit.svg" class="w-7" alt=""></a>
+                                    <a href="{{ route('events.archive', $event['id']) }}"><img src="img/archive.svg" class="w-6" alt=""></a>
+                                    <a href="{{ route('events.delete', $event['id']) }}"><img src="img/delete.svg" class="w-6 btnRemove" alt=""></a>
+                                </div>
                             </div>
-                            @empty
-                                <p class="text-lg">Ningún evento creado 😮</p>
-                            @endforelse
+                        @empty
+                            <p class="text-lg">Ningún evento creado 😮</p>
+                        @endforelse
                     </div>
                 </div>
                 <div class="flex justify-center p-3 containerAdminList lg:w-1/6 w-[100%] rounded-lg bg-gray-100 overflow-auto">

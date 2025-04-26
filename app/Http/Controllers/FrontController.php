@@ -5,12 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Category;
+use Illuminate\Routing\Controller;
 
 class FrontController extends Controller
 {
     /**
      * Handle the incoming request.
      */
+
+
+    public function __construct()
+    {
+        $this->middleware('auth:web,admin')->except(['__invoke', 'getViewSubscription']);
+    }
+ 
+
     public function __invoke(Request $request)
     {
         if($request->all()){
@@ -41,5 +50,18 @@ class FrontController extends Controller
 
     public function getViewSubscription(){
         return view('front.subscription');
+    }
+
+    public function getViewTickets(){
+        if (count(auth()->user()->participants) > 0){
+            $tickets = auth()->user()->participants;
+
+            foreach ($tickets as $ticket){
+                $eventGroups = $tickets->flatMap->events->groupBy('id');
+            }
+            return view('front.tickets', compact('eventGroups'));
+        }else{
+            return view('front.tickets');
+        }
     }
 }

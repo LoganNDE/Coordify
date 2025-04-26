@@ -18,10 +18,15 @@ class paymentController extends Controller
         $this->middleware('auth:web,admin')->except([]);
     }
 
-    public function checkout(string $id)
+    public function checkout(string $id, Request $request)
     {
-        $event = Event::findOrFail($id);
+        $name_participant = null;
 
+        if ($request->input('name')){
+            $name_participant = $request->input('name');
+        } 
+
+        $event = Event::findOrFail($id);
         Stripe::setApiKey(config('services.stripe.secret'));
 
         $session = Session::create([
@@ -42,6 +47,7 @@ class paymentController extends Controller
             'success_url' => route('checkout.success') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('checkout.cancel', ['id' => $event->id]),
             'metadata' => [
+                'participant_name' => $name_participant,
                 'event_id' => $event->id,
                 'user_id' => auth()->id() ?? 'guest',
             ],
@@ -67,7 +73,15 @@ class paymentController extends Controller
 
         if ($session->payment_status === 'paid') {
             $eventId = $session->metadata->event_id;
+
+            if ($session->metadata->participant_name != null){
+                $participant_name = $session->metadata->participant_name;
+            }else{
+                $participant_name = $session->customer_details->name;
+            }
+
             $event = Event::findOrFail($eventId);
+            $customerEmail = $session->customer_details->email; // 🎯 Aquí tienes el correo
             $user = auth()->user();
 
             // Verifica si ya existe un participante con esta sesión
@@ -75,8 +89,8 @@ class paymentController extends Controller
 
             if (!$participant) {
                 $participant = new Participant();
-                $participant->name = $user->name;
-                $participant->email = $user->email;
+                $participant->name = $participant_name;
+                $participant->email = $customerEmail;
                 $participant->user_id = $user->id;
                 $participant->stripe_session_id = $session->id;
 

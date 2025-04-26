@@ -29,9 +29,12 @@ Route::get('logout', [UsuarioController::class, 'logout'])->name('logout');
 Route::post('login', [UsuarioController::class, 'login'])->name('checkLogin');
 Route::post('event/import', [EventController::class, 'importEvent']);
 
+
+
 // FrontController
 Route::get('/', FrontController::class )->name('front.index');
 Route::get('/subscriptions', [FrontController::class, 'getViewSubscription'])->name('front.subscriptions');
+Route::get('/tickets', [FrontController::class, 'getViewTickets'])->name('front.tickets');
 
 //Usuarios
 Route::post('settings', [UsuarioController::class, 'updateDetails'])->name('user.updateDetails');

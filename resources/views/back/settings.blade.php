@@ -2,7 +2,7 @@
 @section('titlePage', 'Configuración')
 
 @section('content')
-    <div class="p-5 flex gap-3 flex-col w-[85%] lg:w-4/6 justify-center"> 
+    <div class="p-5 flex gap-3 flex-col w-[85%] lg:w-4/6 mt-8"> 
         <div class="settingsContainer bg-gray-100 w-full p-6 rounded-lg">
             <h1 class="text-2xl">Configuración</h1>
             @if (session('success'))
