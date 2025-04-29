@@ -31,21 +31,22 @@
                 </div>
             </section>
             
+            @if (isset($events))
             <section class="events w-full flex lg:flex-row flex-col gap-3">
                 <div class="containerEventList lg:w-5/6 min-h-[450px] w-full flex overflow-auto bg-gray-100 rounded-md">
                     <div class="flex flex-col gap-3 w-full p-3 items-center">
                         @forelse ($events as $event)
                             <div class="info flex w-full justify-between p-3 rounded-lg bg-gray-200">
                                 <a href="{{ route('events.show', $event['id']) }}" class="w-[80%] inline-block">
-                                    <div>
+                                    <div class="flex gap-50">
                                         <span class="nameEvent">{{ $event['name'] }}</span>
-                                        <span>12/24</span>
+                                        <span><i class="fa-regular fa-circle-user"></i> {{ count($event->participants) }}</span>
                                     </div>
                                 </a>
                                 <div class="actionBtns flex gap-4 w-[20%]">
-                                    <a href="{{ route('events.edit', $event['id']) }}"><img src="img/edit.svg" class="w-7" alt=""></a>
-                                    <a href="{{ route('events.archive', $event['id']) }}"><img src="img/archive.svg" class="w-6" alt=""></a>
-                                    <a href="{{ route('events.delete', $event['id']) }}"><img src="img/delete.svg" class="w-6 btnRemove" alt=""></a>
+                                    <a href="{{ route('events.edit', $event['id']) }}"><img src="{{ asset("img/actions/edit.svg") }}" class="w-7" alt="Edit"></a>
+                                    <a href="{{ route('events.archive', $event['id']) }}"><img src="{{ asset("img/actions/archive.svg") }}" class="w-7" alt="Archive"></a>
+                                    <a href="{{ route('events.delete', $event['id']) }}"><img src="{{ asset("img/actions/delete.svg") }}" class="w-7 btnRemove" alt="Delete"></a>
                                 </div>
                             </div>
                         @empty
@@ -86,9 +87,65 @@
                     </div>
                 </div>
             </section>
+            @else (isset($archives))
+                <section class="events w-full flex lg:flex-row flex-col gap-3">
+                    <div class="containerEventList lg:w-5/6 min-h-[450px] w-full flex overflow-auto bg-gray-100 rounded-md">
+                        <div class="flex flex-col gap-3 w-full p-3 items-center">
+                            @forelse ($archives as $archive)
+                                <div class="info flex w-full justify-between p-3 rounded-lg bg-gray-200">
+                                    <a href="{{ route('events.show', $archive['id']) }}" class="w-[80%] inline-block">
+                                        <div class="flex gap-50">
+                                            <span class="nameEvent">{{ $archive['name'] }}</span>
+                                        </div>
+                                    </a>
+                                    <div class="actionBtns flex gap-4 w-[20%]">
+                                        <a href="{{ route('events.archive', $archive['id']) }}"><img src="{{ asset("img/actions/archive.svg") }}" class="w-7" alt="Archive"></a>
+                                    </div>
+                                </div>
+                            @empty
+                                <p class="text-lg">Ningún evento creado 😮</p>
+                            @endforelse
+                        </div>
+                    </div>
+                    <div class="flex justify-center p-3 containerAdminList lg:w-1/6 w-[100%] rounded-lg bg-gray-100 overflow-auto">
+                        <div class="flex gap-4 flex-col">
+                            <div class="infoAdminList flex justify-center items-center flex-col">
+                                <h3 class="text-center">Administradores</h3>
+                                <a class="bg-primary text-secundary py-1 px-8 text-sm rounded-lg text-center" href="{{ route('events.newadmin') }}">Agregar</a>     
+                            </div>
+                            <div class="adminList pt-3 flex flex-col gap-5">
+
+                                @if ($mainAdmin->name != auth()->user()->name)
+                                    <div class="infoAdmin flex items-center gap-4">
+                                        <img class="w-10 h-10 rounded-full object-cover object-top" src="{{ isset($mainAdmin->image) ? Storage::url($mainAdmin->image) : asset('img/default.png') }}" alt="{{ $mainAdmin->name }} photo">
+                                        <span class="userName adminUser" >{{ $mainAdmin->name }} </span>
+                                    </div>
+                                @endif
+
+                                <div class="infoAdmin flex items-center gap-4">
+                                        <img class="w-10 h-10 rounded-full object-cover object-top" src="{{ isset(auth()->user()->image) ? Storage::url(auth()->user()->image) : asset('img/default.png') }}" alt="{{ auth()->user()->name }} photo">
+                                        <span class="userName" >{{ auth()->user()->name }} </span>
+                                        <span class="active ml-2"></span>
+                                    </div>
+                                
+                                @foreach ($administrators as $administrator)
+                                    @if ($administrator->name != auth()->user()->name)
+                                        <div class="flex items-center gap-4">
+                                            <img class="w-10 h-10 rounded-full object-cover object-top" src="{{ isset($administrator->image) ? Storage::url($administrator->image) : '/img/default.png' }}" alt="{{ $administrator->name }} photo">
+                                            <span>{{ $administrator->name }}</span>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @endif
+
+            
             <section class="stats grid grid-cols-2 lg:grid-cols-4 gap-4 w-full">
-                <div class="infoStats w-full p-5 rounded-lg bg-gray-100 text-center"><span class="flex w-full justify-center text-2xl font-bold">{{ count($events)  }}</span><p>Evento activo/s</p></div>
-                <div class="infoStats w-full p-5 rounded-lg bg-gray-100 text-center"><span class="flex w-full justify-center text-2xl font-bold">{{ $eventsArchive }}</span><p>Evento/s archivado/s</p></div>
+                <div class="infoStats w-full p-5 rounded-lg bg-gray-100 text-center"><a href="{{ route('events.index') }}"><span class="flex w-full justify-center text-2xl font-bold">{{ isset($totalEvents) ? $totalEvents: ""  }}</span><p>Evento activo/s</p></a></div>
+                <div class="infoStats w-full p-5 rounded-lg bg-gray-100 text-center"><a href="{{ route('events.archives') }}"><span class="flex w-full justify-center text-2xl font-bold">{{ isset($totalArchives) ? $totalArchives: ""   }}</span><p>Evento/s archivado/s</p></a></div>
                 <div class="infoStats w-full p-5 rounded-lg bg-gray-100 text-center"><span class="flex w-full justify-center text-2xl font-bold">2</span><p>Elementos eliminados</p></div>
                 <div class="infoStats w-full p-5 rounded-lg bg-gray-100 text-center"><span class="flex w-full justify-center text-2xl font-bold">16</span><p>Elementos creados</p></div>
             </section>

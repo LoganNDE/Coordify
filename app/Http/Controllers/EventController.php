@@ -10,6 +10,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver;
 use function PHPUnit\Framework\returnArgument;
 
 class EventController extends Controller
@@ -27,10 +28,27 @@ class EventController extends Controller
     {
         $mainAdmin_id = isset(auth()->user()->user_id) ? auth()->user()->user_id : auth()->user()->id;
         $events = User::findOrFail($mainAdmin_id)->events;
+      
+        $totalEvents = Event::where('user_id', $mainAdmin_id)->count();
+        $totalArchives = EventArchive::where("user_id", $mainAdmin_id)->count();
+
+        $mainAdmin = User::findOrFail($mainAdmin_id);
+        $administrators = Administrator::where('user_id',$mainAdmin_id)->get();
+        return view('back.index', compact('events', 'totalEvents', 'totalArchives', 'administrators', 'mainAdmin'));
+    }
+
+
+    public function archives(){
+        $mainAdmin_id = isset(auth()->user()->user_id) ? auth()->user()->user_id : auth()->user()->id;
+        $archives = EventArchive::where('user_id', $mainAdmin_id)->get();
+        
+        $totalEvents = Event::where('user_id', $mainAdmin_id)->count();
+        $totalArchives = EventArchive::where("user_id", $mainAdmin_id)->count();
+        
         $mainAdmin = User::findOrFail($mainAdmin_id);
         $administrators = Administrator::where('user_id',$mainAdmin_id)->get();
         $eventsArchive = count(EventArchive::get());
-        return view('back.index', compact('events', 'eventsArchive', 'administrators', 'mainAdmin'));
+        return view('back.index', compact('archives', 'totalEvents', 'totalArchives' ,'administrators', 'mainAdmin'));
     }
 
     /**

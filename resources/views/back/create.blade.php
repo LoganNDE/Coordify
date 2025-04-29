@@ -41,14 +41,11 @@
     
         <!-- Provincia y Dirección -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div>
-                <label class="block text-gray-700 mb-2" for="province">
-                    Provincia <span class="text-red-500">*</span>
-                </label>
-                <input type="text" id="province" name="province" class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" tabindex="2">
-                @error('province')
-                    <div class="text-red-500 text-sm">{{ $message }}</div>
-                @enderror
+            <gmpx-api-loader key="AIzaSyARVjInGbqVvUYGEYw-NqJX0EJIC9sAtAA" solution-channel="GMP_GE_placepicker_v2"></gmpx-api-loader>
+                <div id="place-picker-box">
+                <div id="place-picker-container">
+                    <gmpx-place-picker placeholder="Enter an address"></gmpx-place-picker>
+                </div>
             </div>
             <div>
                 <label class="block text-gray-700 mb-2" for="address">
@@ -172,3 +169,5 @@
         </div>
     </form>
 @endsection
+
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/@googlemaps/extended-component-library/0.6.11/index.min.js"></script>

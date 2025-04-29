@@ -17,20 +17,13 @@
     @endif
     <header class="w-full min-h-[100px] flex justify-center items-center">
         <div class="w-[90%] lg:w-[80%] flex justify-between">
-            <div class="w-[50%] lg:w-[30%]">
+            <div class="w-[50%]">
                 <a href="{{ route('front.index') }}">
                     <img class="w-[150px]" src="{{ asset('img/logos/coordify.svg') }}" alt="Coordify"></img>
                 </a>
             </div>
-            <div class="flex justify-end lg:justify-between items-end w-[50%] lg:w-[70%]">
-                <ul class="hidden lg:flex gap-10 items-center">
-                    <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="{{ route('front.index') }}">Inicio</a></li>
-                    <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="{{ route('front.tickets') }}">Mis entradas</a></li>
-                    <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="{{ route('front.subscriptions') }}">Suscripciones</a></li>
-                    <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="">Perfil</a></li>
-                    <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="{{ route('events.settings') }}">Ajustes</a></li>
-                </ul>
-                <a class="px-6 rounded-full py-2 bg-primary text-secundary font-medium" href="{{ route('events.index') }}">Mis eventos</a>
+            <div class="flex justify-end lg:justify-end items-end w-[50%]">
+                <a class="px-6 rounded-full py-2 bg-primary text-secundary font-medium" href="{{ route('front.index') }}">Página principal</a>
             </div>
         </div>
     </header>

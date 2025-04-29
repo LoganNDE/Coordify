@@ -21,7 +21,10 @@ Route::get('events/archive/{id}', [EventController::class, 'archive'])->name('ev
 Route::get('events/delete/{id}', [EventController::class, 'destroy'])->name('events.delete');
 Route::get('reader', [EventController::class, 'showReader'])->name('events.qrReader');
 Route::get('settings', [UsuarioController::class ,'showSettings'])->name('events.settings');
+Route::get('events/archives', [EventController::class, 'archives'] )->name('events.archives');
 Route::get('administration', [EventController::class, 'index'] )->name('events.index');
+
+
 Route::get('events', [EventController::class, 'index']);
 Route::resource('events', EventController::class)->except('index', 'destroy');
 Route::get('login', UsuarioController::class)->name('login');
