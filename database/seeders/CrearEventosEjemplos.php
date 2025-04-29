@@ -30,7 +30,7 @@ class CrearEventosEjemplos extends Seeder
 
         $event = new Event();
         $event->id = 5;
-        $event->name = 'Partido de futbol | Madrid vs Barcelona';
+        $event->name = 'Partido de fútbol | Madrid vs Barcelona';
         $event->description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
         $event->province = 'Quart de Poblet';
         $event->address = 'Calle madre asuncion 22';
@@ -78,7 +78,7 @@ class CrearEventosEjemplos extends Seeder
 
         $event = new Event();
         $event->id = 8;
-        $event->name = 'Orquesta solidaria recaudacion DANA';
+        $event->name = 'Orquesta solidaria recaudación DANA';
         $event->description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
         $event->province = 'Valencia';
         $event->address = 'Salon de actos de Quart de Poblet';
