@@ -91,21 +91,5 @@ class CrearEventosEjemplos extends Seeder
         $event->community = 'Comunidad De Madrid';
         $event->user_id = 2;
         $event->save();
-
-        $event = new Event();
-        $event->id = 9;
-        $event->name = 'dasdsadasdsa';
-        $event->description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-        $event->province = 'dasdsadas';
-        $event->address = 'dsadsadsadsa';
-        $event->startDate = '0012-12-24';
-        $event->startTime = '12:21:00';
-        $event->endDate = '4122-02-12';
-        $event->endTime = '12:21:00';
-        $event->paymentType = 'free';
-        $event->image = 'events/OBqf1vr12iUhUtX5NyyDQdPwj61mxUTu12ipoKRZ.jpg';
-        $event->community = 'Comunidad De Madrid';
-        $event->user_id = 2;
-        $event->save();
     }
 }

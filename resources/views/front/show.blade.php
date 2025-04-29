@@ -44,7 +44,7 @@
                     </div>
 
                     <div class="actionButtonsShow py-3 flex gap-x-6">
-                            <a class="py-3 px-12 bg-yellow-300 rounded-full {{ $event['price'] === 0 ? 'freeEvent' : '' }}" data-user-name="{{ auth()->user()->name }}" href="{{ route('payment.checkout', ['id' => $event->id]) }}">Comprar</a>
+                            <a class="py-3 px-12 bg-yellow-300 rounded-full {{ $event['price'] === 0 ? 'freeEvent' : '' }}" data-user-name="{{ isset(auth()->user()->name) ? auth()->user()->name : ''  }}" href="{{ route('payment.checkout', ['id' => $event->id]) }}">Comprar</a>
                             <a class="py-3 px-12 border rounded-full" href="">Contactar</a>
                     </div>
                 </div> 
