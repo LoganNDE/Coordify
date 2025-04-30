@@ -18,7 +18,7 @@
             mylocalStorage.setItem('laravelError', "{{ session('error') }}");
           </script>
       @endif
-      <form class="mt-8" method="POST" action="{{ route('checkLogin') }}">
+      <form class="mt-8" method="POST" action="{{ route('admin.checklogin') }}">
         @csrf
         <div class="space-y-5">
           <div>
@@ -64,7 +64,7 @@
           </div>
           <div>
             <button
-              class="mt-3 inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
+              class="inline-flex w-full items-center justify-center rounded-md bg-black px-3.5 py-2.5 font-semibold leading-7 text-white hover:bg-black/80"
               type="submit"
             >
               Comenzar
@@ -91,7 +91,7 @@
           </span>
           Sign in with Google
         </button>
-        <a class="flex justify-start hover:underline" href="{{ route('admin.checklogin') }}">Soy administrador</a>
+        <a class="flex justify-start hover:underline" href="{{ route('login') }}">Soy usuario</a>
       </div>
     </div>
   </div>

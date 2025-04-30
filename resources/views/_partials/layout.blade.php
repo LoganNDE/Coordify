@@ -37,8 +37,8 @@
             <!-- Por que tengo que poner min-w para que me funcione -->
             <a href="{{ route('events.index') }}"><img src="{{ asset('img/menu/events.svg') }}" class="lg:w-12 lg:h-12 min-w-8 h-8" alt=""></a>
             <a href="{{ route('events.qrReader') }}"><img src="{{ asset('img/menu/camera.svg') }}" class="lg:w-12 lg:h-12 min-w-8 h-8" alt=""></a>
-            <a href="{{ route('events.settings') }}"><img src="{{ asset('img/menu/settings.svg') }}" class="lg:w-11 lg:h-11 min-w-8 h-8" alt="settings"></a>
-            <a href="{{ route('logout') }}"><img src="{{ asset('img/menu/exit.svg') }}" class="lg:w-12 lg:h-12 min-w-8 h-8" alt="logout" id="logout"></a>
+            <a href="{{ route(isset(auth()->user()->user_id) ? 'admin.settings' : 'user.settings') }}"><img src="{{ asset('img/menu/settings.svg') }}" class="lg:w-11 lg:h-11 min-w-8 h-8" alt="settings"></a>
+            <a id="logout" href="{{ route(isset(auth()->user()->user_id) ? 'admin.logout' : 'logout') }}"><img src="{{ asset('img/menu/exit.svg') }}" class="lg:w-12 lg:h-12 min-w-8 h-8" alt="logout"></a>
         </nav>
     </div>
     

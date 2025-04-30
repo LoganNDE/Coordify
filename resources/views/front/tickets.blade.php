@@ -1,5 +1,5 @@
 @extends('_partials.layout-front')
-@section('title', 'Entradas')
+@section('titlePage', 'Entradas')
 
 @section('content')
     <div class="flex gap-3 flex-col w-[85%] lg:w-[80%] h-full mt-8">

@@ -7,17 +7,14 @@
             <h1 class="text-2xl">Configuración</h1>
             @if (session('success'))
                 <script>
-                    const mylocalstorage = window.localStorage;
-                    mylocalstorage.setItem('successLaravel', "{{ session('success') }}");
+                    window.localStorage.setItem('successLaravel', "{{ session('success') }}");
                 </script> 
             @elseif (session('error'))
-                <script>
-                    console.log("{{ session('error') }}");
-                    mylocalstorage = window.localStorage;
-                    mylocalstorage.setItem('laravelError', "{{ session('error') }}");
-                </script>
+                    <script>
+                        window.localStorage.setItem('laravelError', "{{ session('error') }}");
+                    </script>
             @endif
-            <form enctype="multipart/form-data" action="{{ route('user.updateDetails') }}" method="post">
+            <form enctype="multipart/form-data" action="{{ route(isset(auth()->user()->user_id) ? 'admin.updateDetails' : 'user.updateDetails') }}" method="post">
                 @csrf
                 <div class="relative flex w-full flex-col justify-center items-center p-5">
                 <!-- Imagen de perfil -->
@@ -64,7 +61,7 @@
                 </div>
             </form>
             <div class="containerChangePassword py-5">
-                <form action="{{ route('user.updatePassword') }}" method="POST">
+                <form action="{{ route((isset(auth()->user()->user_id) ? 'admin.updatePassword' : 'user.updatePassword')) }}" method="POST">
                     @csrf
                     <!-- Contraseñas -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-3 mt-8">

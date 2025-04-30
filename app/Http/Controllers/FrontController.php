@@ -22,6 +22,12 @@ class FrontController extends Controller
 
     public function __invoke(Request $request)
     {
+
+        if (isset(auth('admin')->user()->user_id)){
+            return view('front.admin');
+        }
+
+        // Filtro de categorias
         if($request->all()){
             $query = Event::query();
 
@@ -49,10 +55,18 @@ class FrontController extends Controller
 
 
     public function getViewSubscription(){
+        if (isset(auth('admin')->user()->user_id)){
+            return view('front.admin');
+        }
+
         return view('front.subscription');
     }
 
     public function getViewTickets(){
+        if (isset(auth('admin')->user()->user_id)){
+            return view('front.admin');
+        }
+
         if (count(auth()->user()->participants) > 0){
             $tickets = auth()->user()->participants;
 

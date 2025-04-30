@@ -134,7 +134,12 @@ window.onload = () =>{
         heightAuto: false
       }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = event.target.parentElement.href;
+            console.log(event.target.href);
+            if (event.target.parentElement.href != undefined){
+                window.location.href = event.target.parentElement.href;
+            }else if(event.target.href != undefined){
+              window.location.href = event.target.href;
+            }
         }
       });
     }

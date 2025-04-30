@@ -42,7 +42,7 @@
         <!-- Provincia y Dirección -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div id="place-picker-box">
-                <gmpx-api-loader key="AIzaSyARVjInGbqVvUYGEYw-NqJX0EJIC9sAtAA" solution-channel="GMP_GE_placepicker_v2"></gmpx-api-loader>
+                <gmpx-api-loader key="AIzaSyC5FG6dGHcIsOHuC1Ydp9piOonudpMimxI" solution-channel="GMP_GE_placepicker_v2"></gmpx-api-loader>
                 <div id="place-picker-container">
                     <gmpx-place-picker placeholder="Enter an address"></gmpx-place-picker>
                 </div>

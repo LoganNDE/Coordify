@@ -21,7 +21,7 @@
                     <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="{{ route('front.tickets') }}">Mis entradas</a></li>
                     <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="{{ route('front.subscriptions') }}">Suscripciones</a></li>
                     <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="">Perfil</a></li>
-                    <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="{{ route('events.settings') }}">Ajustes</a></li>
+                    <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="{{ route('user.settings') }}">Ajustes</a></li>
                 </ul>
                 <a class="px-6 rounded-full py-2 bg-primary text-secundary font-medium" href="{{ route('events.index') }}">Mis eventos</a>
             </div>
@@ -38,8 +38,8 @@
             <!-- Por que tengo que poner min-w para que me funcione -->
             <a href="{{ route('front.index') }}"><img src="{{ asset('img/menu.svg') }}" class="min-w-10 h-10" alt=""></a>
             <a href=""><img src="{{ asset('img/menu/camera.svg') }}" class="min-w-10 h-10" alt=""></a>
-            <a href="{{ route('events.settings') }}"><img src="{{ asset('img/setting.svg') }}" class="min-w-10 h-10" alt="settings"></a>
-            <a href="{{ route('logout') }}"><img src="{{ asset('img/exit.svg') }}" class="min-w-10 h-10" alt="logout" id="logout"></a>
+            <a href="{{ route('user.settings') }}"><img src="{{ asset('img/setting.svg') }}" class="min-w-10 h-10" alt="settings"></a>
+            <a id="logout" href="{{ route('logout') }}"><img src="{{ asset('img/exit.svg') }}" class="min-w-10 h-10" alt="logout"></a>
         </nav>
     </div>
 

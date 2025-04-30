@@ -4,7 +4,7 @@ use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\paymentController;
-use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\UserController;
 use App\Http\Resources\Categories;
 use App\Http\Resources\CategoriesResource;
 use App\Models\Category;
@@ -20,17 +20,36 @@ Route::post('events/newadmin', [AdministratorController::class, 'newadmin'])->na
 Route::get('events/archive/{id}', [EventController::class, 'archive'])->name('events.archive');
 Route::get('events/delete/{id}', [EventController::class, 'destroy'])->name('events.delete');
 Route::get('reader', [EventController::class, 'showReader'])->name('events.qrReader');
-Route::get('settings', [UsuarioController::class ,'showSettings'])->name('events.settings');
+
 Route::get('events/archives', [EventController::class, 'archives'] )->name('events.archives');
 Route::get('administration', [EventController::class, 'index'] )->name('events.index');
 
 
 Route::get('events', [EventController::class, 'index']);
 Route::resource('events', EventController::class)->except('index', 'destroy');
-Route::get('login', UsuarioController::class)->name('login');
-Route::get('logout', [UsuarioController::class, 'logout'])->name('logout');
-Route::post('login', [UsuarioController::class, 'login'])->name('checkLogin');
+Route::get('login', UserController::class)->name('login');
+Route::get('logout', [UserController::class, 'logout'])->name('logout');
+Route::post('login', [UserController::class, 'login'])->name('checkLogin');
 Route::post('event/import', [EventController::class, 'importEvent']);
+
+
+// BackController
+
+
+
+// AdministratorController
+Route::get('/login-admin', AdministratorController::class)->name('admin.checklogin');
+Route::get('/register-admin', [AdministratorController::class, 'registerLikeUser'])->name('admin.register');
+Route::post('/login-admin', [AdministratorController::class, 'login'])->name('admin.checkLogin');
+
+
+// Ruta repetida se debe de modificar el view en el que se usa para identificar
+Route::get('logout-admin', [AdministratorController::class, 'logout'])->name('admin.logout');
+Route::get('settings-admin', [AdministratorController::class ,'showSettings'])->name('admin.settings');
+Route::post('settings-admin', [AdministratorController::class, 'updateDetails'])->name('admin.updateDetails');
+Route::post('settings/password-admmin', [AdministratorController::class, 'updatePassword'])->name('admin.updatePassword');
+
+
 
 
 
@@ -40,8 +59,11 @@ Route::get('/subscriptions', [FrontController::class, 'getViewSubscription'])->n
 Route::get('/tickets', [FrontController::class, 'getViewTickets'])->name('front.tickets');
 
 //Usuarios
-Route::post('settings', [UsuarioController::class, 'updateDetails'])->name('user.updateDetails');
-Route::post('settings/password', [UsuarioController::class, 'updatePassword'])->name('user.updatePassword');
+Route::post('settings', [UserController::class, 'updateDetails'])->name('user.updateDetails');
+Route::get('settings', [UserController::class ,'showSettings'])->name('user.settings');
+Route::post('settings/password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
+Route::get('events/newadmin', [UserController::class, 'showNewAdmin'])->name('events.newadmin');
+Route::post('events/newadmin', [UserController::class, 'newadmin'])->name('events.newadmin');
 
 // Checkout
 Route::get('events/checkout/{id}', [PaymentController::class, 'checkout'])->name('payment.checkout');
