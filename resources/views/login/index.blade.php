@@ -91,7 +91,10 @@
           </span>
           Sign in with Google
         </button>
-        <a class="flex justify-start hover:underline" href="{{ route('admin.checklogin') }}">Soy administrador</a>
+        <div class="flex justify-between">
+          <a class="flex justify-start hover:underline" href="{{ route('admin.checklogin') }}">Soy administrador</a>
+          <a class="flex justify-start hover:underline" href="{{ route('user.register') }}">¿Aún no tienes cuenta?</a>
+        </div>
       </div>
     </div>
   </div>

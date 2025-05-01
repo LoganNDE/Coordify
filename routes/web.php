@@ -62,6 +62,9 @@ Route::get('/tickets', [FrontController::class, 'getViewTickets'])->name('front.
 Route::post('settings', [UserController::class, 'updateDetails'])->name('user.updateDetails');
 Route::get('settings', [UserController::class ,'showSettings'])->name('user.settings');
 Route::post('settings/password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
+Route::get('register', [UserController::class, 'showRegister'])->name('userShow.register');
+Route::post('register', [UserController::class, 'register'])->name('user.register');
+
 Route::get('events/newadmin', [UserController::class, 'showNewAdmin'])->name('events.newadmin');
 Route::post('events/newadmin', [UserController::class, 'newadmin'])->name('events.newadmin');
 

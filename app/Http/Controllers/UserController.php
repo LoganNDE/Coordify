@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Expr\New_;
 
 class UserController extends Controller
 {
@@ -45,6 +46,44 @@ class UserController extends Controller
         }
 
         return redirect()->back()->with('error', 'Usuario o contraseña incorrectos.');
+    }
+
+
+    public function register(Request $request)
+    {
+        // Validar que el campo de usuario no esté vacío
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'verifyPassword' => 'required',
+        ]);
+        
+
+        if ($request->input('password') != $request->input('verifyPassword')) {
+            return redirect()->route('user.register')->with('error', 'Las contraseñas no coinciden');
+        } elseif (User::where('email', $request->input('email'))->exists()) {
+            return redirect()->route('user.register')->with('error', 'Este correo ya se encuentra registrado');
+        } elseif (User::where('name', $request->input('name'))->exists()) {
+            return redirect()->route('user.register')->with('error', 'Este nombre de usuario ya se encuentra registrado');
+        }
+
+
+
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = $request->input('password');
+        $user->save();
+
+        Auth::login($user);
+
+        return redirect()->route('front.index')->with('success', 'Registro completado');
+    }
+
+    public function showRegister()
+    {
+        return view('login.register');
     }
 
 

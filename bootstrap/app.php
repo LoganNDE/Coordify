@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-
+        /*
         $exceptions->render(function (QueryException $e, Request $request) {
             if ($e->getCode() === '23000' && $request->isMethod('post')) {
                 return redirect()->back()->with('error', 'Ese correo electrónico ya está en uso.');
@@ -35,5 +35,6 @@ return Application::configure(basePath: dirname(__DIR__))
             // Para todo lo demás, que Laravel siga su flujo normal
             return null;
         });
+        */
 
     })->create();
