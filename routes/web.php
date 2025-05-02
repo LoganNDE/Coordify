@@ -11,6 +11,7 @@ use App\Models\Category;
 use Illuminate\Routing\RouteRegistrar;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\QRCodeController;
 
 
@@ -92,3 +93,12 @@ Route::get('/generate-qr', [QRCodeController::class, 'generate']);
 
 // QR Validation
 Route::post('reader', [QRCodeController::class, 'QRValidate']);
+
+Route::get('/test-mail', function () {
+    Mail::raw('Este es un correo de prueba desde mi servidor SMTP.', function ($message) {
+        $message->to('logannaranjo4@gmail.com')
+                ->subject('Correo de prueba desde Laravel');
+    });
+
+    return 'Correo enviado';
+});
