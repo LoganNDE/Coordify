@@ -96,7 +96,7 @@ Route::post('reader', [QRCodeController::class, 'QRValidate']);
 
 Route::get('/test-mail', function () {
     Mail::raw('Este es un correo de prueba desde mi servidor SMTP.', function ($message) {
-        $message->to('logannaranjo4@gmail.com')
+        $message->to('mnoguerabe@gmail.com')
                 ->subject('Correo de prueba desde Laravel');
     });
 

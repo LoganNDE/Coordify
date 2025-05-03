@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserRegister;
 use App\Models\Administrator;
 use Exception;
 use Illuminate\Routing\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use PhpParser\Node\Expr\New_;
 
 class UserController extends Controller
@@ -75,6 +77,8 @@ class UserController extends Controller
         $user->email = $request->input('email');
         $user->password = $request->input('password');
         $user->save();
+
+        Mail::to($user->email)->send(new UserRegister($user));
 
         Auth::login($user);
 
