@@ -62,14 +62,14 @@
 <body>
   <div class="container">
     <div class="header">
-      <div class="logo"><img src="{{ asset('img/logos/coordify.svg') }}" alt="Coordify"></div>
+      <div class="logo"><img src="https://coordify.logannr.me/img/logos/coordify.svg" alt="Coordify" width="120"></div>
     </div>
     <div class="content">
       <h1>¡Hola {{ $user->name }}!</h1>
       <p>Gracias por registrarte en <strong>Coordify</strong>. Estás a un paso de descubrir, crear y coordinar eventos como un profesional.</p>
       <p>Desde talleres y conciertos hasta eventos corporativos o de bienestar, Coordify te ayuda a organizarlos fácilmente y conectar con tu audiencia.</p>
 
-      <a href="{{ url('https://coordify.logannr.me') }}" class="cta">Empieza a Coordinar</a>
+      <a href="{{ url('https://coordify.logannr.me') }}" class="cta">Empieza a coordinar</a>
     </div>
     <div class="footer">
       © {{ now()->year }} Coordify. Todos los derechos reservados.
