@@ -69,7 +69,7 @@
       <p>Gracias por registrarte en <strong>Coordify</strong>. Estás a un paso de descubrir, crear y coordinar eventos como un profesional.</p>
       <p>Desde talleres y conciertos hasta eventos corporativos o de bienestar, Coordify te ayuda a organizarlos fácilmente y conectar con tu audiencia.</p>
 
-      <a href="{{ url('/perfil') }}" class="cta text-white">Completa tu perfil</a>
+      <a href="{{ url('https://coordify.logannr.me') }}" class="cta">Empieza a Coordinar</a>
     </div>
     <div class="footer">
       © {{ now()->year }} Coordify. Todos los derechos reservados.
