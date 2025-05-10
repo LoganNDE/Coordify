@@ -5,55 +5,56 @@ namespace App\Http\Controllers;
 use App\Models\Administrator;
 use App\Models\Category;
 use App\Models\Event;
-use App\Models\EventArchive;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver;
-use function PHPUnit\Framework\returnArgument;
 
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
 
     public function __construct()
     {
     $this->middleware('auth:web,admin')->except(['login', 'getPublicEvents', 'publicShow']);
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        
         $mainAdmin_id = isset(auth()->user()->user_id) ? auth()->user()->user_id : auth()->user()->id;
-        $events = User::findOrFail($mainAdmin_id)->events;
-      
-        $totalEvents = Event::where('user_id', $mainAdmin_id)->count();
-        $totalArchives = EventArchive::where("user_id", $mainAdmin_id)->count();
 
-        $mainAdmin = User::findOrFail($mainAdmin_id);
+        if ($request->input('search')){
+            $search = $request->input('search');
+            $events = User::findOrFail($mainAdmin_id)->events()->where('archived', false)->where('name', 'like', '%' . $search . '%')->get();
+        }else{
+            $events = User::findOrFail($mainAdmin_id)->events()->where('archived', false)->get();
+        }
+
+        $totalEvents = Event::where('user_id', $mainAdmin_id)->count();
+        $totalArchives = Event::where('user_id', $mainAdmin_id)->where('archived', true)->count();
+
         $administrators = Administrator::where('user_id',$mainAdmin_id)->get();
+        $mainAdmin = User::findOrFail($mainAdmin_id);
+
         return view('back.index', compact('events', 'totalEvents', 'totalArchives', 'administrators', 'mainAdmin'));
     }
 
-
     public function archives(){
         $mainAdmin_id = isset(auth()->user()->user_id) ? auth()->user()->user_id : auth()->user()->id;
-        $archives = EventArchive::where('user_id', $mainAdmin_id)->get();
-        
+        $archives = Event::where('user_id', $mainAdmin_id)->where('archived', true)->get();
+
+
         $totalEvents = Event::where('user_id', $mainAdmin_id)->count();
-        $totalArchives = EventArchive::where("user_id", $mainAdmin_id)->count();
+        $totalArchives = Event::where('user_id', $mainAdmin_id)->where('archived', true)->count();
         
-        $mainAdmin = User::findOrFail($mainAdmin_id);
+
         $administrators = Administrator::where('user_id',$mainAdmin_id)->get();
-        $eventsArchive = count(EventArchive::get());
+        $mainAdmin = User::findOrFail($mainAdmin_id);
+
+
         return view('back.index', compact('archives', 'totalEvents', 'totalArchives' ,'administrators', 'mainAdmin'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         if(auth()->user()->events->count() < auth()->user()->subscription->event_limit){
@@ -63,9 +64,6 @@ class EventController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
 
@@ -112,9 +110,6 @@ class EventController extends Controller
         return redirect()->route('events.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function publicShow(string $id)
     {
         $event = Event::findOrFail($id);
@@ -127,23 +122,16 @@ class EventController extends Controller
         return view('back.view', compact('event'));
     }
 
-
     public function showReader(){
         return view('back.qr-reader');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $event = Event::findOrFail($id);
         return view('back.update', compact('event'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         // Validación de los datos
@@ -172,28 +160,35 @@ class EventController extends Controller
 
         // Actualizar el evento con los datos validados
         $event->update($validatedData);
-        return redirect()->route('events.index')->with('success', 'Evento actualizado con éxito');
 
+        if ($event->archived){
+            return redirect()->route('events.archives')->with('success', 'Evento actualizado con éxito');
+        }else{
+            return redirect()->route('events.index')->with('success', 'Evento actualizado con éxito');
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         Event::findOrFail($id)->delete();
         return redirect()->route('events.index');
     }
 
-
-
     public function archive(string $id){
         $event = Event::findOrFail($id);
-        EventArchive::create($event->toArray());
-        $event->delete();
-        return redirect()->route('events.index');
+        $event->archived = true;
+        $event->save();
+
+        return redirect()->route('events.index')->with('success', 'Evento archivado con éxito');
     }
 
+    public function unarchive(string $id){
+        $event = Event::findOrFail($id);
+        $event->archived = false;
+        $event->save();
+
+        return redirect()->route('events.index')->with('success', 'Evento desarchivado con éxito');
+    }
 
     public function importEvent(Request $request)
     {   

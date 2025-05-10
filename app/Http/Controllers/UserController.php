@@ -3,20 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Mail\UserRegister;
-use App\Models\Administrator;
-use Exception;
 use Illuminate\Routing\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use PhpParser\Node\Expr\New_;
 
 class UserController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
 
     public function __construct()
     {
@@ -90,8 +84,6 @@ class UserController extends Controller
         return view('login.register');
     }
 
-
-
     public function updateDetails(Request $request){
             // Validación de los datos
 
@@ -116,7 +108,6 @@ class UserController extends Controller
 
             return redirect()->route('user.settings')->with('success', 'Informacion de usuario actualizada correctamente');
     }
-
 
     public function updatePassword(Request $request){
         // Validación de los datos
@@ -147,8 +138,6 @@ class UserController extends Controller
         return view('back.settings');
     }
 
-
-
     public function showNewAdmin()
     {
         //Si queremos utilizar property_existe, debemos de asegurarnos previamente que el usuario este logeado;
@@ -158,8 +147,7 @@ class UserController extends Controller
             return redirect()->route('events.index')->with('error','No tienes permisos para agregar administradores');
         }
     }
-
-
+    
     public function logout()
     {
         Auth::logout();

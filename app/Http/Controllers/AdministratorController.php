@@ -11,9 +11,6 @@ use function PHPUnit\Framework\returnArgument;
 
 class AdministratorController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
     public function __construct()
     {
         $this->middleware('auth:admin')->except(['__invoke', 'login']);
@@ -46,8 +43,6 @@ class AdministratorController extends Controller
 
         return redirect()->back()->with('error', 'Usuario o contraseña incorrectos.');
     }
-
-
 
     public function updateDetails(Request $request){
         // Validación de los datos
@@ -96,15 +91,11 @@ class AdministratorController extends Controller
         return redirect()->route('admin.settings')->with('success', 'Cotraseña actualizada correctamente');
     }
 
-
     public function registerLikeUser()
     {
         Auth::logout();
         return redirect()->route('login')->with('success', 'Se ha cerrado sesión correctamente');
     }
-
-
-
 
     public function showSettings(){
         return view('back.settings');

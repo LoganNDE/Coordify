@@ -228,6 +228,5 @@ class paymentController extends Controller
             return back()->with('error', 'Hubo un error al cancelar tu suscripción: ' . $e->getMessage());
         }
     }
-
     
 }

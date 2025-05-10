@@ -72,23 +72,9 @@ return new class extends Migration
             $table->boolean('promoted')->default(false);
             $table->unsignedBigInteger('category_id')->default(1);
             $table->unsignedBigInteger('user_id');
+            $table->boolean('archived')->default(false);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->timestamps();
-        });
-
-        Schema::create('event_archives', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->string('province');
-            $table->string('address');
-            $table->date('startDate');
-            $table->date('endDate');
-            $table->enum('paymentType', ['free', 'paid'])->default('free');
-            $table->string('image')->nullable();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
 

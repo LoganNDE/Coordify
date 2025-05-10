@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    //
-    protected $fillable = ['name', 'description', 'community' ,'province', 'address', 'startDate', 'startTime' ,'endDate', 'endTime','paymentType', 'price', 'image', 'category_id' ,'user_id'];
+    protected $fillable = ['name', 'description', 'community' ,'province', 'address', 'startDate', 
+    'startTime' ,'endDate', 'endTime','paymentType', 'price', 'image', 'category_id' ,'user_id'];
 
     public function user()
     {
@@ -23,6 +23,5 @@ class Event extends Model
     {
         return $this->belongsToMany(Participant::class, 'event_participant');
     }
-    
-
 }
+

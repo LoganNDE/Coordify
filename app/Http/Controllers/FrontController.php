@@ -9,17 +9,12 @@ use Illuminate\Routing\Controller;
 
 class FrontController extends Controller
 {
-    /**
-     * Handle the incoming request.
-     */
-
 
     public function __construct()
     {
         $this->middleware('auth:web,admin')->except(['__invoke', 'getViewSubscription']);
     }
  
-
     public function __invoke(Request $request)
     {
 
@@ -27,7 +22,6 @@ class FrontController extends Controller
             return view('front.admin');
         }
 
-        // Filtro de categorias
         if($request->all()){
             $query = Event::query();
 
@@ -44,15 +38,14 @@ class FrontController extends Controller
                 }
             }
             
-            $events = $query->get();          
+            $events = $query->where('archived', false)->get();
         }else{
-            $events = Event::orderBy('promoted', 'desc')->orderBy('created_at', 'desc')->get();            
+            $events = Event::orderBy('promoted', 'desc')->orderBy('created_at', 'desc')->where('archived', false)->get();            
         }
         $categories = Category::all();
 
         return view('front.index', compact('events', 'categories'));
     }
-
 
     public function getViewSubscription(){
         if (isset(auth('admin')->user()->user_id)){

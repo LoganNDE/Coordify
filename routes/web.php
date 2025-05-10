@@ -22,18 +22,17 @@ Route::get('events/archive/{id}', [EventController::class, 'archive'])->name('ev
 Route::get('events/delete/{id}', [EventController::class, 'destroy'])->name('events.delete');
 Route::get('reader', [EventController::class, 'showReader'])->name('events.qrReader');
 
+
+Route::get('events', [EventController::class, 'index'])->name('events.index');
 Route::get('events/archives', [EventController::class, 'archives'] )->name('events.archives');
-Route::get('administration', [EventController::class, 'index'] )->name('events.index');
-
-
-Route::get('events', [EventController::class, 'index']);
+Route::get('events/unarchive/{id}', [EventController::class, 'unarchive'])->name('events.unarchive');
+Route::post('event/import', [EventController::class, 'importEvent']);
 Route::resource('events', EventController::class)->except('index', 'destroy');
+
+
 Route::get('login', UserController::class)->name('login');
 Route::get('logout', [UserController::class, 'logout'])->name('logout');
 Route::post('login', [UserController::class, 'login'])->name('checkLogin');
-Route::post('event/import', [EventController::class, 'importEvent']);
-
-
 // BackController
 
 
@@ -83,7 +82,7 @@ Route::get('/subscription/cancel', [paymentController::class, 'cancelSubscriptio
 
 
 
-// Categorias
+// API Categorias
 Route::get('data/api/getcategories', function () {
     return CategoriesResource::collection(Category::all());
 });

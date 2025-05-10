@@ -9,14 +9,14 @@
             mylocalStorage.setItem('successLaravel', "{{ session('success') }}");
         </script>
     @endif
-        <div class="flex gap-3 flex-col w-[85%] lg:w-4/6 mt-8">
+        <div class="flex gap-3 flex-col w-[85%] lg:w-4/6 mt-2 lg:mt-8">
             <section class="flex lg:flex-row flex-col align-center items-center w-full max-w-full gap-3 lg:gap-4">
                 <div class="conatinerBtn flex justify-between items-center h-full lg:w-[27%] w-[100%] gap-2">
-                    <a class="bg-primary text-secundary hover:text-white transition duration-290 py-3 px-7 lg:px-6 rounded-lg lg:text-base text-[15px]" href="{{ route('events.create') }}">Crear evento</a>
-                    <a class="bg-secundary text-white py-3 px-7 lg:px-6 rounded-lg lg:text-base text-[15px]" id="btnImportEvent" href="#">Importar evento</a>
+                    <a class="bg-primary text-secundary hover:text-white transition duration-290 py-2 px-7 lg:px-6 lg:py-3 rounded-lg lg:text-base text-[15px]" href="{{ route('events.create') }}">Crear evento</a>
+                    <a class="bg-secundary text-white py-2 px-7 lg:px-6 lg:py-3 rounded-lg lg:text-base text-[15px]" id="btnImportEvent" href="#">Importar evento</a>
                 </div>
                 <div class="containerSearchBar flex items-center h-full lg:w-[73%] w-[100%]">
-                    <form class="w-full mx-auto">   
+                    <form class="w-full mx-auto" action="{{ route('events.index') }}" method="GET">   
                         <label for="default-search" class="mb-2 lg:font-md sm:font-xs text-gray-900 sr-only dark:text-white">Buscar</label>
                         <div class="relative">
                             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -24,7 +24,10 @@
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                 </svg>
                             </div>
-                            <input type="search" id="default-search" class="block w-full p-3 ps-10 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Busca tu evento..." required />
+                            <input type="search" name="search" class="block w-full p-3 ps-10 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Busca tu evento..." value="{{ request()->input('search') ?? '' }}" required />
+                            @if (request()->input('search'))
+                                <a href="{{ route('events.index') }}" class="cursor-pointer text-white absolute end-24 bottom-1.5 bg-gray-300 hover:bg-secundary transition duration-290 font-medium rounded-full text-sm w-9 h-9 flex justify-center items-center">X</a>
+                            @endif
                             <button type="submit" class="cursor-pointer text-white absolute end-2 bottom-1.5 bg-secundary hover:bg-black focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar</button>
                         </div>
                     </form>
@@ -37,20 +40,24 @@
                     <div class="flex flex-col gap-3 w-full p-3 items-center">
                         @forelse ($events as $event)
                             <div class="info flex w-full justify-between p-3 rounded-lg bg-gray-200">
-                                <a href="{{ route('events.show', $event['id']) }}" class="w-[80%] inline-block">
-                                    <div class="flex gap-50">
+                                <a href="{{ route('events.show', $event['id']) }}" class="lg:w-[80%] w-[70%] inline-block">
+                                    <div class="flex lg:flex-row flex-col gap-2 lg:gap-50">
                                         <span class="nameEvent">{{ $event['name'] }}</span>
                                         <span><i class="fa-regular fa-circle-user"></i> {{ count($event->participants) }}</span>
                                     </div>
                                 </a>
-                                <div class="actionBtns flex gap-4 w-[20%]">
+                                <div class="actionBtns flex lg:gap-4 gap-2 w-[30%]">
                                     <a href="{{ route('events.edit', $event['id']) }}"><img src="{{ asset("img/actions/edit.svg") }}" class="w-7" alt="Edit"></a>
                                     <a href="{{ route('events.archive', $event['id']) }}"><img src="{{ asset("img/actions/archive.svg") }}" class="w-7" alt="Archive"></a>
                                     <a href="{{ route('events.delete', $event['id']) }}"><img src="{{ asset("img/actions/delete.svg") }}" class="w-7 btnRemove" alt="Delete"></a>
                                 </div>
                             </div>
                         @empty
-                            <p class="text-lg">Ningún evento creado 😮</p>
+                            @if (request()->input('search'))
+                                <p class="text-lg">No se encontraron eventos. Asegurese que el evento buscado se encuentre activo 😣</p>
+                            @else
+                                <p class="text-lg">Ningún evento creado 😮</p>
+                            @endif
                         @endforelse
                     </div>
                 </div>
@@ -99,11 +106,13 @@
                                         </div>
                                     </a>
                                     <div class="actionBtns flex gap-4 w-[20%]">
-                                        <a href="{{ route('events.archive', $archive['id']) }}"><img src="{{ asset("img/actions/archive.svg") }}" class="w-7" alt="Archive"></a>
+                                        <a href="{{ route('events.edit', $archive['id']) }}"><img src="{{ asset("img/actions/edit.svg") }}" class="w-7" alt="Edit"></a>
+                                        <a href="{{ route('events.unarchive', $archive['id']) }}"><img src="{{ asset("img/actions/archive.svg") }}" class="w-7" alt="Archive"></a>
+                                        <a href="{{ route('events.delete', $archive['id']) }}"><img src="{{ asset("img/actions/delete.svg") }}" class="w-7 btnRemove" alt="Delete"></a>
                                     </div>
                                 </div>
                             @empty
-                                <p class="text-lg">Ningún evento creado 😮</p>
+                                <p class="text-lg">Ningún evento archivado 😮</p>
                             @endforelse
                         </div>
                     </div>

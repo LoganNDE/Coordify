@@ -57,6 +57,13 @@ body{
     width: 265px;
 }
 
+@media (max-width: 480px) {
+    .nameEvent{
+        width: 90%;
+    }
+}
+
+
 .active{
     display: inline-block;
     min-width: 10px;
