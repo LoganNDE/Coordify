@@ -25,7 +25,7 @@
                     </div>
                     
                     <div class="w-[100%] lg:w-[30%] flex justify-center lg:justify-end px-12 items-center">
-                    <picture class="w-[200px] block animate-float">
+                    <picture class="w-[150px] lg:w-[200px] block animate-float">
                         <source srcset="{{ asset('img/subscription/'. auth()->user()->subscription->image) }}" type="image/webp">
                         <img src="{{ asset('img/subscription/' . auth()->user()->subscription->aux_image) }}" alt="Suscripción " . {{ auth()->user()->subscription->name }}>
                     </picture>
@@ -34,7 +34,7 @@
             @endif
 
             <div class="flex justify-center items-center flex-col mt-8">
-                <h1 class="text-3xl font-bold">Coordina como un profesional</h1>
+                <h1 class="text-3xl font-bold text-secundary">Coordina como un profesional</h1>
                 <div class="ContainerSubscriptions w-[100%] lg:w-[70%] flex flex-col lg:flex-row gap-6 mt-8 mb-12">
                     <div class="subSilver w-[100%] lg:w-[33%] bg-gray-100 py-8 px-8 rounded-lg flex flex-col gap-8">
                         <div>
@@ -57,7 +57,7 @@
                         </form>
 
                     </div>
-                    <div class="subGold w-[100%] lg:w-[33%] bg-secundary py-8 px-8 rounded-lg flex flex-col gap-8 ring-1 ring-primary lg:scale-[1.04]">
+                    <div class="subGold w-[100%] lg:w-[33%] bg-secundary py-8 px-8 rounded-lg flex flex-col gap-8 lg:scale-[1.04]">
                         <div>
                             <h2 class="text-xl text-white">Plan oro | 12,99</h2>
                             <ul class="list-disc ml-6 mt-4">

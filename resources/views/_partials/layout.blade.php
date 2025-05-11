@@ -33,12 +33,12 @@
     <div class="w-full flex justify-center sticky bottom-0 lg:bottom-10">
         <nav class="navContainer px-10 lg:mt-4 rounded-3xl bg-gray-100 lg:min-h-18 min-h-16">
             <div class="flex w-full justify-center gap-8 md:gap-10 lg:gap-15 items-center h-full">
-            <a href="{{ route('front.index') }}"><img src="{{ asset('img/menu/home.svg') }}" class="lg:w-12 lg:h-12 min-w-8 h-8" alt="home"></a>
+            <a href="{{ route('front.index') }}"><img src="{{ asset('img/menu/home.svg') }}" class="lg:w-12 lg:h-12 min-w-10 h-10" alt="home"></a>
             <!-- Por que tengo que poner min-w para que me funcione -->
-            <a href="{{ route('events.index') }}"><img src="{{ asset('img/menu/events.svg') }}" class="lg:w-12 lg:h-12 min-w-8 h-8" alt=""></a>
-            <a href="{{ route('events.qrReader') }}"><img src="{{ asset('img/menu/camera.svg') }}" class="lg:w-12 lg:h-12 min-w-8 h-8" alt=""></a>
-            <a href="{{ route(isset(auth()->user()->user_id) ? 'admin.settings' : 'user.settings') }}"><img src="{{ asset('img/menu/settings.svg') }}" class="lg:w-11 lg:h-11 min-w-8 h-8" alt="settings"></a>
-            <a id="logout" href="{{ route(isset(auth()->user()->user_id) ? 'admin.logout' : 'logout') }}"><img src="{{ asset('img/menu/exit.svg') }}" class="lg:w-12 lg:h-12 min-w-8 h-8" alt="logout"></a>
+            <a href="{{ route('events.index') }}"><img src="{{ asset('img/menu/events.svg') }}" class="lg:w-12 lg:h-12 min-w-10 h-10" alt=""></a>
+            <a href="{{ route('events.qrReader') }}"><img src="{{ asset('img/menu/camera.svg') }}" class="lg:w-12 lg:h-12 min-w-10 h-10" alt=""></a>
+            <a href="{{ route(isset(auth()->user()->user_id) ? 'admin.settings' : 'user.settings') }}"><img src="{{ asset('img/menu/settings.svg') }}" class="lg:w-11 lg:h-11 min-w-10 h-10" alt="settings"></a>
+            <a id="logout" href="{{ route(isset(auth()->user()->user_id) ? 'admin.logout' : 'logout') }}"><img src="{{ asset('img/menu/exit.svg') }}" class="lg:w-12 lg:h-12 min-w-10 h-10" alt="logout"></a>
         </nav>
     </div>
     

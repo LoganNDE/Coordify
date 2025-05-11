@@ -34,12 +34,12 @@
     <div class="w-full flex lg:hidden justify-center sticky bottom-5 lg:bottom-10">
         <nav class="navContainer px-6 lg:mt-4 rounded-3xl bg-gray-100 lg:min-h-18 min-h-16">
             <div class="flex w-full justify-center gap-8 md:gap-10 lg:gap-15 items-center h-full">
-            <a href="{{ route('events.index') }}"><img src="{{ asset('img/home.svg') }}" class="min-w-10 h-10" alt="home"></a>
+            <a href="{{ route('front.index') }}"><img src="{{ asset('img/menu/home.svg') }}" class="min-w-10 h-10" alt="home"></a>
             <!-- Por que tengo que poner min-w para que me funcione -->
-            <a href="{{ route('front.index') }}"><img src="{{ asset('img/menu.svg') }}" class="min-w-10 h-10" alt=""></a>
-            <a href=""><img src="{{ asset('img/menu/camera.svg') }}" class="min-w-10 h-10" alt=""></a>
-            <a href="{{ route('user.settings') }}"><img src="{{ asset('img/setting.svg') }}" class="min-w-10 h-10" alt="settings"></a>
-            <a id="logout" href="{{ route('logout') }}"><img src="{{ asset('img/exit.svg') }}" class="min-w-10 h-10" alt="logout"></a>
+            <a href="{{ route('front.tickets') }}"><img src="{{ asset('img/menu/tickets.svg') }}" class="min-w-10 h-10" alt="tickets"></a>
+            <a href="{{ route('front.subscriptions') }}"><img src="{{ asset('img/menu/packs.svg') }}" class="min-w-10 h-10" alt="packs"></a>
+            <a href="{{ route('user.settings') }}"><img src="{{ asset('img/menu/settings.svg') }}" class="min-w-10 h-10" alt="settings"></a>
+            <a id="logout" href="{{ route('logout') }}"><img src="{{ asset('img/menu/exit.svg') }}" class="min-w-10 h-10" alt="logout"></a>
         </nav>
     </div>
 
