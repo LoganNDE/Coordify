@@ -34,7 +34,7 @@
         </div>
         @else
             <div class="flex justify-center mt-8"></div>
-            <p class="text-center text-gray-500 mt-10">No tienes entradas activas para ningún evento. 😮</p>
+            <p class="text-center text-secundary mt-10  text-2xl lg:text-4xl font-bold">No tienes entradas activas para ningún evento. 😮</p>
         @endif
     </div>
 @endsection

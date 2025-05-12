@@ -44,7 +44,7 @@
             <div id="place-picker-box">
                 <gmpx-api-loader key="AIzaSyC5FG6dGHcIsOHuC1Ydp9piOonudpMimxI" solution-channel="GMP_GE_placepicker_v2"></gmpx-api-loader>
                 <div id="place-picker-container">
-                    <gmpx-place-picker placeholder="Enter an address"></gmpx-place-picker>
+                    <gmpx-place-picker placeholder="Enter an address" class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></gmpx-place-picker>
                 </div>
             </div>
             <div>

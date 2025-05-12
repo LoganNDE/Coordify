@@ -31,7 +31,7 @@
         @yield('content')
     </main>
     
-    <div class="w-full flex lg:hidden justify-center sticky bottom-5 lg:bottom-10">
+    <div class="w-full flex lg:hidden justify-center sticky bottom-2">
         <nav class="navContainer px-6 lg:mt-4 rounded-3xl bg-gray-100 lg:min-h-18 min-h-16">
             <div class="flex w-full justify-center gap-8 md:gap-10 lg:gap-15 items-center h-full">
             <a href="{{ route('front.index') }}"><img src="{{ asset('img/menu/home.svg') }}" class="min-w-10 h-10" alt="home"></a>
