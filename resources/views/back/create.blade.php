@@ -40,7 +40,7 @@
         </div>
     
         <!-- Provincia y Dirección -->
-        <div class="grid grid-cols-1 gap-6 mb-6">
+        <div class="grid grid-cols-1 mb-6">
             <label class="block text-gray-700 mb-2" for="autocomplete">
                 Dirección <span class="text-red-500">*</span>
             </label>
