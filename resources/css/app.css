@@ -145,6 +145,7 @@ SELECT {
     background-color: #373643;
     border-radius: 10px;
 }
+<<<<<<< HEAD
 
 #html5-qrcode-button-camera-permission{
     padding: 4px 6px;
@@ -170,3 +171,5 @@ SELECT {
     border: none !important;
     border-radius: 12px;
 }
+=======
+>>>>>>> 666764ebc97a9b37b9abfb944a05e701df2253bd
