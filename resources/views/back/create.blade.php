@@ -171,12 +171,12 @@
         const autocomplete = new google.maps.places.Autocomplete(input, {
             fields: ['formatted_address', 'geometry'],
             types: ['address'],
-            componentRestrictions: { country: 'es' } // Opcional: restringe a España
+            componentRestrictions: { country: 'es' }
         });
 
         autocomplete.addListener('place_changed', () => {
             const place = autocomplete.getPlace();
-            console.log(place.formatted_address); // Aquí puedes extraer lo que necesites
+            console.log(place.formatted_address);
         });
     }
 

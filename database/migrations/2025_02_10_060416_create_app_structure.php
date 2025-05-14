@@ -60,7 +60,6 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->text('community');
-            $table->string('province');
             $table->string('address');
             $table->date('startDate');
             $table->time('startTime');
