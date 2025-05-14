@@ -42,10 +42,6 @@
         <!-- Provincia y Dirección -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div id="place-picker-box">
-                <gmpx-api-loader key="AIzaSyC5FG6dGHcIsOHuC1Ydp9piOonudpMimxI" solution-channel="GMP_GE_placepicker_v2"></gmpx-api-loader>
-                <div id="place-picker-container">
-                    <gmpx-place-picker placeholder="Enter an address" class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"></gmpx-place-picker>
-                </div>
             </div>
             <div>
                 <label class="block text-gray-700 mb-2" for="address">
@@ -170,4 +166,5 @@
     </form>
 @endsection
 
-<script type="module" src="https://ajax.googleapis.com/ajax/libs/@googlemaps/extended-component-library/0.6.11/index.min.js"></script>
+<script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+        ({key: "AIzaSyA6myHzS10YXdcazAFalmXvDkrYCp5cLc8", v: "weekly"});</script>
