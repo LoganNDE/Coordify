@@ -40,18 +40,16 @@
         </div>
     
         <!-- Provincia y Dirección -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div id="place-picker-box">
-            </div>
-            <div>
-                <label class="block text-gray-700 mb-2" for="address">
-                    Dirección <span class="text-red-500">*</span>
-                </label>
-                <input type="text" id="address" name="address" class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" tabindex="3">
-                @error('address')
-                    <div class="text-red-500 text-sm">{{ $message }}</div>
-                @enderror
-            </div>
+        <div class="grid grid-cols-1 gap-6 mb-6">
+            <label class="block text-gray-700 mb-2" for="autocomplete">
+                Dirección <span class="text-red-500">*</span>
+            </label>
+            <input id="autocomplete" name="address"
+                class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                placeholder="Introduce una dirección" tabindex="3">
+            @error('address')
+                <div class="text-red-500 text-sm">{{ $message }}</div>
+            @enderror
         </div>
     
         <!-- Fechas -->
@@ -166,5 +164,21 @@
     </form>
 @endsection
 
-<script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
-        ({key: "AIzaSyD-xoyvaSB2vcD1qoxCyRXsJ-FjDiCJS2g", v: "weekly"});</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-xoyvaSB2vcD1qoxCyRXsJ-FjDiCJS2g&libraries=places&v=weekly" defer></script>
+<script>
+    function initAutocomplete() {
+        const input = document.getElementById('autocomplete');
+        const autocomplete = new google.maps.places.Autocomplete(input, {
+            fields: ['formatted_address', 'geometry'],
+            types: ['address'],
+            componentRestrictions: { country: 'es' } // Opcional: restringe a España
+        });
+
+        autocomplete.addListener('place_changed', () => {
+            const place = autocomplete.getPlace();
+            console.log(place.formatted_address); // Aquí puedes extraer lo que necesites
+        });
+    }
+
+    window.addEventListener('load', initAutocomplete);
+</script>

@@ -1,6 +1,5 @@
 import './bootstrap';
 import './free_events';
-import './place-api';
 import Swal from 'sweetalert2';
 import Splide from '@splidejs/splide';
 import '@splidejs/splide/css';
