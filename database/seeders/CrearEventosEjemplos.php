@@ -16,7 +16,6 @@ class CrearEventosEjemplos extends Seeder
         $event->id = 4;
         $event->name = 'Cumpleaños de Logan';
         $event->description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-        $event->province = 'Madrid';
         $event->address = 'Jesus morante borras 29, Quart de poblet';
         $event->startDate = '2024-02-12';
         $event->startTime = '12:00:00';
@@ -32,7 +31,6 @@ class CrearEventosEjemplos extends Seeder
         $event->id = 5;
         $event->name = 'Partido de fútbol | Madrid vs Barcelona';
         $event->description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-        $event->province = 'Quart de Poblet';
         $event->address = 'Calle madre asuncion 22';
         $event->startDate = '1122-11-12';
         $event->startTime = '21:12:00';
@@ -48,7 +46,6 @@ class CrearEventosEjemplos extends Seeder
         $event->id = 6;
         $event->name = 'Apertura del nuevo tarantin chiflado';
         $event->description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-        $event->province = 'Valencia';
         $event->address = 'Jesus Morante Colo Colo 12';
         $event->startDate = '1122-02-12';
         $event->startTime = '12:22:00';
@@ -64,7 +61,6 @@ class CrearEventosEjemplos extends Seeder
         $event->id = 7;
         $event->name = 'Clases de piano | Multisala';
         $event->description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-        $event->province = 'Valencia';
         $event->address = 'Calle madre asuncion 22';
         $event->startDate = '1221-02-12';
         $event->startTime = '21:22:00';
@@ -80,7 +76,6 @@ class CrearEventosEjemplos extends Seeder
         $event->id = 8;
         $event->name = 'Orquesta solidaria recaudación DANA';
         $event->description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-        $event->province = 'Valencia';
         $event->address = 'Salon de actos de Quart de Poblet';
         $event->startDate = '1212-02-12';
         $event->startTime = '21:22:00';

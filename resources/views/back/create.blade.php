@@ -6,6 +6,17 @@
         @csrf
         <input type="text" name="user_id" value="{{ $id = isset(auth()->user()->user_id) ? auth()->user()->user_id : auth()->user()->id }}" hidden>
         
+        @if ($errors->any())
+            <div class="bg-red-100 text-red-800 p-4 rounded mb-4">
+                <p><strong>Se han producido los siguientes errores:</strong></p>
+                <ul class="mt-2 list-disc list-inside">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <!-- Nombre -->
         <div class="mb-6">
             <label class="block text-gray-700 mb-2" for="name">Nombre<span class="text-red-500">*</span></label>
@@ -44,7 +55,7 @@
             <label class="block text-gray-700 mb-2" for="autocomplete">
                 Dirección <span class="text-red-500">*</span>
             </label>
-            <input id="autocomplete" name="address"
+            <input id="" name="address"
                 class="p-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 placeholder="Introduce una dirección" tabindex="3">
             @error('address')
@@ -169,8 +180,7 @@
     function initAutocomplete() {
         const input = document.getElementById('autocomplete');
         const autocomplete = new google.maps.places.Autocomplete(input, {
-            fields: ['formatted_address', 'geometry'],
-            types: ['address'],
+            fields: ['place_id', 'name', 'formatted_address', 'geometry'],            types: ['address'],
             componentRestrictions: { country: 'es' }
         });
 
