@@ -57,6 +57,8 @@ Route::post('settings/password-admmin', [AdministratorController::class, 'update
 Route::get('/', FrontController::class )->name('front.index');
 Route::get('/subscriptions', [FrontController::class, 'getViewSubscription'])->name('front.subscriptions');
 Route::get('/tickets', [FrontController::class, 'getViewTickets'])->name('front.tickets');
+Route::get('/legal-notice', [FrontController::class, 'getLegalNotice'])->name('front.legal-notice');
+Route::get('/privacy-policy', [FrontController::class, 'getPrivacyPolicy'])->name('front.privacy-policy');
 
 //Usuarios
 Route::post('settings', [UserController::class, 'updateDetails'])->name('user.updateDetails');

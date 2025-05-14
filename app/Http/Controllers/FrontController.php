@@ -71,4 +71,13 @@ class FrontController extends Controller
             return view('front.tickets');
         }
     }
+
+
+    public function getLegalNotice(){
+        return view('front.legal-notice');
+    }
+
+    public function getPrivacyPolicy(){
+        return view('front.privacy-policy');
+    }
 }
