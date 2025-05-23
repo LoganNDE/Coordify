@@ -43,7 +43,7 @@ class AdministratorController extends Controller
 
         return redirect()->back()->with('error', 'Usuario o contraseña incorrectos.');
     }
-
+    
     public function updateDetails(Request $request){
         // Validación de los datos
 
@@ -105,6 +105,11 @@ class AdministratorController extends Controller
     {
         Auth::logout();
         return redirect()->route('front.index');
+    }
+
+    public static function getAdministrators($mainAdmin_id)
+    {
+        return Administrator::where('user_id', $mainAdmin_id)->get();
     }
 
 }

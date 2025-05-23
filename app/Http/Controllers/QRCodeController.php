@@ -13,8 +13,8 @@ class QRCodeController extends Controller
     {
         $qr = QrCode::format('png')
             ->size(300)
-            ->backgroundColor(255, 255, 0)
-            ->color(0, 0, 255)
+            ->backgroundColor(55, 54, 67)
+            ->color(24, 203, 150)
             ->margin(2)
             ->style('round')
             ->eye('circle')

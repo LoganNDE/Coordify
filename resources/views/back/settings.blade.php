@@ -2,22 +2,12 @@
 @section('titlePage', 'Configuración')
 
 @section('content')
-    <div class="flex gap-3 flex-col w-[85%] lg:w-4/6 mt-2 lg:mt-8"> 
-        <div class="settingsContainer bg-gray-100 w-full p-6 rounded-lg">
+    <div class="flex gap-3 flex-col w-[90%] lg:w-4/6 mt-2 mx-auto"> 
+        <div class="settingsContainer bg-gray-100 w-full p-4 lg:p-6 rounded-lg">
             <h1 class="text-2xl">Configuración</h1>
-            @if (session('success'))
-                <script>
-                    window.localStorage.setItem('successLaravel', "{{ session('success') }}");
-                </script> 
-            @elseif (session('error'))
-                    <script>
-                        window.localStorage.setItem('laravelError', "{{ session('error') }}");
-                    </script>
-            @endif
             <form enctype="multipart/form-data" action="{{ route(isset(auth()->user()->user_id) ? 'admin.updateDetails' : 'user.updateDetails') }}" method="post">
                 @csrf
                 <div class="relative flex w-full flex-col justify-center items-center p-5">
-                <!-- Imagen de perfil -->
                     <label for="profile-image" class="cursor-pointer">
                         <img id="profile-preview" 
                             class="w-32 h-32 rounded-full object-cover object-top border-2 border-gray-300 hover:opacity-80" 
@@ -28,10 +18,8 @@
                             <span class="mt-3 block text-red-500 text-sm">{{ $message }}</span>
                     @enderror
 
-                    <!-- Input oculto para subir la imagen -->
                     <input type="file" id="profile-image" name="image" accept="image/*" class="hidden">
                 </div>
-                <!-- Usuario y Email -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-3 mt-4">
                     <div>
                         <label class="flex justify-between text-gray-700 mb-2" for="userSettings">
@@ -55,7 +43,7 @@
                 </div>
 
                 <div class="flex gap-4">
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                    <button type="submit" class="bg-secundary text-white cursor-pointer px-4 py-2 rounded-md">
                         Confirmar
                     </button>
                 </div>
@@ -63,7 +51,6 @@
             <div class="containerChangePassword py-5">
                 <form action="{{ route((isset(auth()->user()->user_id) ? 'admin.updatePassword' : 'user.updatePassword')) }}" method="POST">
                     @csrf
-                    <!-- Contraseñas -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-3 mt-8">
                         <div>
                             <label class="flex justify-between text-gray-700 mb-2" for="newPassword">
@@ -87,7 +74,7 @@
                         </div>
                     </div>
                     <div class="flex gap-4">
-                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                        <button type="submit" class="bg-secundary text-white cursor-pointer px-4 py-2 rounded-md">
                             Cambiar contraseña
                         </button>
                     </div>
@@ -99,10 +86,9 @@
 
                     <p class="pr-2">El upgrade de suscripciones esta en desarrollo. Si deseas cambiar de plan a uno superior o inferior, puedes contactar con soporte y te ayudaremos.</p>
                     <div class="flex mt-4 gap-5">
-                        <a class="px-4 py-2 bg-primary text-secundary rounded-lg" href="">Contacar</a>
+                        <a class="px-4 py-2 bg-primary text-secundary rounded-lg" href="mailto:info@coordify.logannr.me">Contacar</a>
                         <a class="px-4 py-2 bg-red-200 text-red-800 rounded-lg" href="{{ route('subscription.cancel') }}">Cancelar suscripción</a>
                     </div>
-                    
                 @endif
             </div>
         </div>

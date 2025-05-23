@@ -2,14 +2,7 @@
 @section('titlePage', 'Inicio')
 
 @section('content')
-    @if(session('success'))
-        <script>
-            console.log("{{ session('success') }}");
-            const mylocalStorage = window.localStorage;
-            mylocalStorage.setItem('successLaravel', "{{ session('success') }}");
-        </script>
-    @endif
-        <div class="flex gap-3 flex-col w-[85%] lg:w-4/6 mt-2 lg:mt-8">
+        <div class="flex gap-3 flex-col w-[90%] lg:w-4/6 mt-2 lg:mt-8 mx-auto">
             <section class="flex lg:flex-row flex-col align-center items-center w-full max-w-full gap-3 lg:gap-4">
                 <div class="conatinerBtn flex justify-between items-center h-full lg:w-[27%] w-[100%] gap-2">
                     <a class="bg-primary text-secundary hover:text-white transition duration-290 py-2 px-7 lg:px-6 lg:py-3 rounded-lg lg:text-base text-[15px]" href="{{ route('events.create') }}">Crear evento</a>
@@ -28,7 +21,7 @@
                             @if (request()->input('search'))
                                 <a href="{{ route('events.index') }}" class="cursor-pointer text-white absolute end-24 bottom-1.5 bg-gray-300 hover:bg-secundary transition duration-290 font-medium rounded-full text-sm w-9 h-9 flex justify-center items-center">X</a>
                             @endif
-                            <button type="submit" class="cursor-pointer text-white absolute end-2 bottom-1.5 bg-secundary hover:bg-black focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar</button>
+                            <button type="submit" class="cursor-pointer text-white absolute end-3 bottom-2 bg-secundary hover:bg-black focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm px-4 py-2 dark:bg-secundary dark:hover:bg-black dark:focus:ring-blue-300">Buscar</button>
                         </div>
                     </form>
                 </div>
@@ -36,17 +29,18 @@
             
             @if (isset($events))
             <section class="events w-full flex lg:flex-row flex-col gap-3">
-                <div class="containerEventList lg:w-5/6 min-h-[450px] w-full flex overflow-auto bg-gray-100 rounded-md">
+                <div class="containerEventList lg:w-5/6 min-h-[450px] max-h-[450px] w-full flex overflow-auto bg-gray-100 rounded-md">
                     <div class="flex flex-col gap-3 w-full p-3 items-center">
                         @forelse ($events as $event)
                             <div class="info flex w-full justify-between p-3 rounded-lg bg-gray-200">
-                                <a href="{{ route('events.show', $event['id']) }}" class="lg:w-[80%] w-[70%] inline-block">
+                                <a href="{{ route('events.show', $event['id']) }}" class="lg:w-[80%] w-[60%] inline-block">
                                     <div class="flex lg:flex-row flex-col gap-2 lg:gap-50">
                                         <span class="nameEvent">{{ $event['name'] }}</span>
                                         <span><i class="fa-regular fa-circle-user"></i> {{ count($event->participants) }}</span>
                                     </div>
                                 </a>
-                                <div class="actionBtns flex lg:gap-4 gap-2 w-[30%]">
+                                <div class="actionBtns flex lg:gap-4 gap-2 lg:w-[20%] w-[40%]">
+                                    @if ( $maxPromotedEvents > $promotedEvents) <a href="{{ route('events.promote', $event['id']) }}"><img src="{{ asset("img/actions/star.svg") }}" class="w-7" alt="Promote"></a> @endif
                                     <a href="{{ route('events.edit', $event['id']) }}"><img src="{{ asset("img/actions/edit.svg") }}" class="w-7" alt="Edit"></a>
                                     <a href="{{ route('events.archive', $event['id']) }}"><img src="{{ asset("img/actions/archive.svg") }}" class="w-7" alt="Archive"></a>
                                     <a href="{{ route('events.delete', $event['id']) }}"><img src="{{ asset("img/actions/delete.svg") }}" class="w-7 btnRemove" alt="Delete"></a>
@@ -96,7 +90,7 @@
             </section>
             @else (isset($archives))
                 <section class="events w-full flex lg:flex-row flex-col gap-3">
-                    <div class="containerEventList lg:w-5/6 min-h-[450px] w-full flex overflow-auto bg-gray-100 rounded-md">
+                    <div class="containerEventList lg:w-5/6 min-h-[450px] max-h-[450px] w-full flex overflow-auto bg-gray-100 rounded-md">
                         <div class="flex flex-col gap-3 w-full p-3 items-center">
                             @forelse ($archives as $archive)
                                 <div class="info flex w-full justify-between p-3 rounded-lg bg-gray-200">
@@ -153,16 +147,13 @@
 
             
             <section class="stats grid grid-cols-2 lg:grid-cols-4 gap-4 w-full">
-                <div class="infoStats w-full p-5 rounded-lg bg-gray-100 text-center"><a href="{{ route('events.index') }}"><span class="flex w-full justify-center text-2xl font-bold">{{ isset($totalEvents) ? $totalEvents: ""  }}</span><p>Evento activo/s</p></a></div>
+                <div class="infoStats w-full p-5 rounded-lg bg-gray-100 text-center"><a href="{{ route('events.index') }}"><span class="flex w-full justify-center text-2xl font-bold">{{ isset($activeEvents) ? $activeEvents: ""  }}</span><p>Evento activo/s</p></a></div>
                 <div class="infoStats w-full p-5 rounded-lg bg-gray-100 text-center"><a href="{{ route('events.archives') }}"><span class="flex w-full justify-center text-2xl font-bold">{{ isset($totalArchives) ? $totalArchives: ""   }}</span><p>Evento/s archivado/s</p></a></div>
-                <div class="infoStats w-full p-5 rounded-lg bg-gray-100 text-center"><span class="flex w-full justify-center text-2xl font-bold">2</span><p>Elementos eliminados</p></div>
-                <div class="infoStats w-full p-5 rounded-lg bg-gray-100 text-center"><span class="flex w-full justify-center text-2xl font-bold">16</span><p>Elementos creados</p></div>
+                @if ($maxEvents == null || $maxEvents > 0)
+                    <div class="infoStats w-full p-5 rounded-lg bg-gray-100 text-center"><span class="flex w-full justify-center text-2xl font-bold"> {{ $totalEvents . '/' . ($maxEvents == null ? '∞' : $maxEvents) }} </span><p>Eventos creados</p></div>
+                @endif
+                <div class="infoStats w-full p-5 rounded-lg bg-gray-100 text-center"><span class="flex w-full justify-center text-2xl font-bold">{{ isset($promotedEvents) ? $promotedEvents . "/" . $maxPromotedEvents : "" }}</span><p>Eventos promocionados</p></div>
+
             </section>
         </div>
-    @if(session('error'))
-        <script>
-            mylocalStorage = window.localStorage;
-            mylocalStorage.setItem('laravelError', "{{ session('error') }}");
-        </script>
-    @endif
 @endsection

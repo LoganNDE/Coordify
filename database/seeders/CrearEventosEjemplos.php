@@ -22,7 +22,7 @@ class CrearEventosEjemplos extends Seeder
         $event->endDate = '2025-06-21';
         $event->endTime = '23:00:00';
         $event->paymentType = 'free';
-        $event->price = null;
+        $event->price = 0;
         $event->image = 'events/people.jpg';
         $event->community = 'País Vasco';
         $event->category_id = 4; // ocio
@@ -125,7 +125,7 @@ class CrearEventosEjemplos extends Seeder
         $event->endDate = '2025-08-10';
         $event->endTime = '18:00:00';
         $event->paymentType = 'free';
-        $event->price = null;
+        $event->price = 0;
         $event->image = 'events/chest.jpg';
         $event->community = 'Aragón';
         $event->category_id = 3; // educación
@@ -176,7 +176,7 @@ class CrearEventosEjemplos extends Seeder
         $event->endDate = '2025-09-01';
         $event->endTime = '14:00:00';
         $event->paymentType = 'free';
-        $event->price = null;
+        $event->price = 0;
         $event->image = 'events/cycling.jpg';
         $event->community = 'Castilla y León';
         $event->category_id = 9; // deportes
@@ -313,7 +313,7 @@ class CrearEventosEjemplos extends Seeder
         $event->endDate = '2025-09-28';
         $event->endTime = '18:00:00';
         $event->paymentType = 'free';
-        $event->price = null;
+        $event->price = 0;
         $event->image = 'events/padel.jpg';
         $event->community = 'Comunidad de Madrid';
         $event->category_id = 9; // deportes
@@ -347,7 +347,7 @@ class CrearEventosEjemplos extends Seeder
         $event->endDate = '2025-10-10';
         $event->endTime = '14:00:00';
         $event->paymentType = 'free';
-        $event->price = null;
+        $event->price = 0;
         $event->image = 'events/paleontologymuseum.jpg';
         $event->community = 'Comunitat Valenciana';
         $event->category_id = 3; // educación
@@ -399,7 +399,7 @@ class CrearEventosEjemplos extends Seeder
         $event->endDate = '2025-11-18';
         $event->endTime = '14:00:00';
         $event->paymentType = 'free';
-        $event->price = null;
+        $event->price = 0;
         $event->image = 'events/running.jpg';
         $event->community = 'Aragón';
         $event->category_id = 9; // deportes
@@ -450,7 +450,7 @@ class CrearEventosEjemplos extends Seeder
         $event->endDate = '2025-11-27';
         $event->endTime = '20:00:00';
         $event->paymentType = 'free';
-        $event->price = null;
+        $event->price = 0;
         $event->image = 'events/signclass.jpg';
         $event->community = 'Andalucía';
         $event->category_id = 3; // educación
@@ -467,7 +467,7 @@ class CrearEventosEjemplos extends Seeder
         $event->endDate = '2025-11-30';
         $event->endTime = '21:00:00';
         $event->paymentType = 'free';
-        $event->price = null;
+        $event->price = 0;
         $event->image = 'events/sunset-5383040_640.jpg';
         $event->community = 'Cataluña';
         $event->category_id = 9; // deportes
@@ -535,7 +535,7 @@ class CrearEventosEjemplos extends Seeder
         $event->endDate = '2025-12-12';
         $event->endTime = '20:00:00';
         $event->paymentType = 'free';
-        $event->price = null;
+        $event->price = 0;
         $event->image = 'events/traincitytour.jpg';
         $event->community = 'Castilla y León';
         $event->category_id = 4; // ocio

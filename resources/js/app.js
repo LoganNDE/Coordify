@@ -1,5 +1,6 @@
 import './bootstrap';
 import './free_events';
+import './menu-mobile';
 import Swal from 'sweetalert2';
 import Splide from '@splidejs/splide';
 import '@splidejs/splide/css';
@@ -36,18 +37,25 @@ window.onload = () =>{
       });
       splide.mount();
     }
+
+    if (document.querySelector('#splideQR')){
+      new Splide('#splideQR', {
+        type: 'loop',
+        perPage: 1,
+        pagination: false,
+        arrows: true,
+      }).mount();
+    }
   
 
     //Elementos DOM
     const deleteEventBtn = document.querySelectorAll('.btnRemove');
     const btnLogout = document.getElementById('logout');
     const btnImportEvent = document.getElementById('btnImportEvent');
-    const viewTime = document.querySelectorAll('.viewTime');
-    const viewDate = document.querySelectorAll('.viewDate');
     const paidRadio = document.getElementById('paidRadio');
     const freeRadio = document.getElementById('freeRadio');
-    const inputCategories = document.getElementById('inputCategories');
     const communityList = document.getElementById('communityList');
+    const inputCategories = document.getElementById('inputCategories');
     const QRContainerReader = document.querySelector('.QRContainerReader');
 
     if (error) {
@@ -95,16 +103,18 @@ window.onload = () =>{
             title: "¿Deseas eliminar este evento?",
             icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
             confirmButtonText: "¡Si, quiero eliminarlo!",
             cancelButtonText: "Cancelar",
+            customClass: {
+              confirmButton: 'swal2-confirm-custom',
+              cancelButton: 'swal2-cancel-custom'
+            },
             heightAuto: false
           }).then((result) => {
             if (result.isConfirmed) {
               Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
+                title: "Borrado!",
+                text: "Se ha eliminado el evento correctamente.",
                 icon: "success",
                 heightAuto: false,
               }).then(() =>{
@@ -127,10 +137,12 @@ window.onload = () =>{
         title: "¿Seguro que quieres cerrar sesión?",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
         confirmButtonText: "¡Si, confirmar!",
         cancelButtonText: "Cancelar",
+        customClass: {
+          confirmButton: 'swal2-confirm-custom',
+          cancelButton: 'swal2-cancel-custom'
+        },
         heightAuto: false
       }).then((result) => {
         if (result.isConfirmed) {
@@ -163,14 +175,14 @@ window.onload = () =>{
           Swal.fire({
             icon: "success",
             heightAuto: false,
-            title: "Your uploaded picture",
+            title: "Evento/s importados correctamente",
           }).then((result) => {
             if (result.isConfirmed) {
               if (mylocalStorage.getItem('csrf_token')){
                 let csrf_token = mylocalStorage.getItem('csrf_token')
                 const formData = new FormData();
                 formData.append('file', file);
-                fetch('http://127.0.0.1:8000/event/import', {
+                fetch('/event/import', {
                   headers: {
                     "X-CSRF-Token": csrf_token,
                   },
@@ -178,7 +190,8 @@ window.onload = () =>{
                   body: formData
                 }).then(response => response.json())
                 .then(result => {
-                  console.log('Success:', result);
+                  mylocalStorage.setItem('successLaravel', 'Evento/s importados correctamente');
+                  window.location.href = '/events';
                 })
                 .catch(error => {
                   console.error('Error:', error);
@@ -201,68 +214,74 @@ window.onload = () =>{
       }
     }
 
-    if (inputCategories){
-        let request = fetch('/data/api/getcategories')
-        request.then((response)=>{
-          if (!response.ok){
-            console.log('Ha surgido un error')
+    if (inputCategories) {
+      const selectedCategory = document.getElementById('selectedCategory');
+    
+      fetch('/data/api/getcategories')
+        .then((response) => {
+          if (!response.ok) {
+            console.log('Ha surgido un error');
           }
-
-          let data = response.json();
-          data.then((response)=>{
-            console.log(response.data)
-            response.data.forEach(category => {
-              let option = document.createElement( 'option' );
-              option.value = option.text = category['name'];
-              option.style.textTransform = 'capitalize';
-              inputCategories.style.textTransform = 'capitalize';
-              inputCategories.add(option);
-            });
-          })
-
+          return response.json();
         })
+        .then((response) => {
+          console.log(response.data);
+          response.data.forEach((category) => {
+            const option = document.createElement('option');
+            option.value = option.text = category['name'];
+            option.style.textTransform = 'capitalize';
+            inputCategories.style.textTransform = 'capitalize';
+            inputCategories.add(option);
+          });
+    
+          if (selectedCategory) {
+            inputCategories.value = selectedCategory.value;
+          }
+        })
+        .catch((error) => console.error(error));
     }
+    
 
     const updateQueryParam = (key, value) => {
       const url = new URL(window.location.href);
-      url.searchParams.set(key, value); // actualiza o añade
+      url.searchParams.set(key, value);
       window.location.href = url.toString();
     }
 
 
     const filterForCommunity = (event) => {
-      updateQueryParam('community', event.target.text);
+      console.log(event.target);
+      updateQueryParam('community', event.target.value);
     }
     
     //CCAA = COMUNIDAD AUTONOMA
     const getAllCCAA = async () =>{
-      try{
-        let request = await fetch('https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/georef-spain-comunidad-autonoma/records?limit=30')
-
-        if (!request.ok){
-          console.log('Ha surgido un error')
-        }
-
-        let data = await request.json();
-        console.log(data.results)
-        data.results.forEach(ccaa => {
-          if (ccaa.acom_name != 'Territorio no asociado a ninguna autonomía'){
-            let option = document.createElement('option');
-            option.value = option.text = ccaa.acom_name;
-
-            option.style.textTransform = 'capitalize';
-            communityList.style.textTransform = 'capitalize';
-            communityList.add(option);
-            if (document.querySelector('.splide')){
-              option.addEventListener('click', filterForCommunity)
-            }
-          }
-        });
+      const selectedCommunity = document.getElementById('selectedCommunity');
       
-      }catch(error){
-        console.log(error)
-      }
+        // Esperamos a que las opciones se hayan cargado
+        fetch('https://public.opendatasoft.com/api/explore/v2.1/catalog/datasets/georef-spain-comunidad-autonoma/records?limit=30')
+          .then(response => response.json())
+          .then(data => {
+            data.results.forEach(ccaa => {
+              if (ccaa.acom_name !== 'Territorio no asociado a ninguna autonomía') {
+                let option = document.createElement('option');
+                option.value = option.text = ccaa.acom_name;
+                option.style.textTransform = 'capitalize';
+                communityList.appendChild(option);
+              }
+            });
 
+            if (communityList.getAttribute('data-input') == 'IndexInputCommunity'){
+              communityList.addEventListener('change', filterForCommunity);
+            }
+            
+            if (selectedCommunity && selectedCommunity.value != '') {
+              const valueToSelect = selectedCommunity.value;
+              communityList.value = valueToSelect;
+            }
+            
+          })
+          .catch(error => console.log(error));
     }
 
     if (communityList){
@@ -286,21 +305,6 @@ window.onload = () =>{
         priceCase.classList.remove('hidden')
       }
       */
-    }
-
-
-    if (viewTime){
-      let maxLength = 6;
-      viewTime.forEach(time => {
-        time.textContent = time.textContent.substring(0, maxLength)
-      });
-    }
-
-    if (viewDate){
-      viewDate.forEach(date => {
-        let arrDate = date.textContent.split('-')
-        date.textContent = arrDate[2]+'/'+arrDate[1]+'/'+arrDate[0];
-      });
     }
 
     if(QRContainerReader){

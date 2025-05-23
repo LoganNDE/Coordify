@@ -8,22 +8,35 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen flex flex-col">
+  @if(session('success'))
+        <script>
+            console.log("{{ session('success') }}");
+            mylocalStorage = window.localStorage;
+            mylocalStorage.setItem('successLaravel', "{{ session('success') }}");
+        </script>
+    @endif
+    @if(session('error'))
+        <script>
+            mylocalStorage = window.localStorage;
+            mylocalStorage.setItem('laravelError', "{{ session('error') }}");
+        </script>
+    @endif
     <header class="w-full min-h-[100px] flex justify-center items-center">
         <div class="w-[90%] lg:w-[80%] flex justify-between">
-            <div class="w-[50%] lg:w-[30%]">
+            <div class="w-[50%] lg:w-[25%]">
                 <a href="{{ route('front.index') }}">
                     <img class="w-[150px]" src="{{ asset('img/logos/coordify.svg') }}" alt="Coordify"></img>
                 </a>
             </div>
-            <div class="flex justify-end lg:justify-between items-end w-[50%] lg:w-[70%]">
-                <ul class="hidden lg:flex gap-10 items-center">
+            <div class="hidden lg:flex justify-center lg:justify-center items-end w-[50%] lg:w-[50%]">
+                <ul class="lg:flex gap-10 items-center">
                     <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="{{ route('front.index') }}">Inicio</a></li>
                     <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="{{ route('front.tickets') }}">Mis entradas</a></li>
                     <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="{{ route('front.subscriptions') }}">Suscripciones</a></li>
-                    <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="">Perfil</a></li>
-                    <li><a class="text-lg hover:text-primary hover:scale-110 transition-all duration-350 inline-block" href="{{ route('user.settings') }}">Ajustes</a></li>
                 </ul>
-                <a class="px-6 rounded-full py-2 bg-primary text-secundary font-medium" href="{{ route('events.index') }}">Mis eventos</a>
+            </div>
+            <div class="w-[50%] lg:w-[25%] flex justify-end items-end">
+              <a class="px-6 rounded-full py-2 bg-primary text-secundary font-medium" href="{{ route('events.index') }}">Mis eventos</a>
             </div>
         </div>
     </header>
@@ -31,19 +44,18 @@
         @yield('content')
     </main>
     
-    <div class="w-full flex lg:hidden justify-center sticky bottom-2">
+    <div id="mobileMenu" class="w-full flex lg:hidden justify-center fixed bottom-2 z-50 transition-all">
         <nav class="navContainer px-6 lg:mt-4 rounded-3xl bg-gray-100 lg:min-h-18 min-h-16">
             <div class="flex w-full justify-center gap-8 md:gap-10 lg:gap-15 items-center h-full">
             <a href="{{ route('front.index') }}"><img src="{{ asset('img/menu/home.svg') }}" class="min-w-10 h-10" alt="home"></a>
             <!-- Por que tengo que poner min-w para que me funcione -->
             <a href="{{ route('front.tickets') }}"><img src="{{ asset('img/menu/tickets.svg') }}" class="min-w-10 h-10" alt="tickets"></a>
             <a href="{{ route('front.subscriptions') }}"><img src="{{ asset('img/menu/packs.svg') }}" class="min-w-10 h-10" alt="packs"></a>
-            <a href="{{ route('user.settings') }}"><img src="{{ asset('img/menu/settings.svg') }}" class="min-w-10 h-10" alt="settings"></a>
             <a id="logout" href="{{ route('logout') }}"><img src="{{ asset('img/menu/exit.svg') }}" class="min-w-10 h-10" alt="logout"></a>
         </nav>
     </div>
 
-    <footer class="w-full bg-white min-h-[5vh] flex justify-center items-center">
+    <footer class="w-full bg-white min-h-[5vh] mt-16 lg:mt-6 flex justify-center items-center">
 
     <div
       class="w-[90%] lg:w-[80%] border-t border-gray-100 py-4 sm:flex sm:items-center sm:justify-between"
@@ -57,6 +69,9 @@
           <a href="{{ route('front.privacy-policy') }}" class="text-gray-500 transition hover:opacity-75"> Pólitica de privacidad </a>
         </li>
 
+        <li>
+          <a href="{{ route('front.cookie-police') }}" class="text-gray-500 transition hover:opacity-75"> Política de cookies </a>
+        </li>
       </ul>
 
       <ul class="mt-8 flex justify-center gap-6 sm:mt-0 lg:justify-end">

@@ -16,12 +16,27 @@
                 <div class="containerActualSub flex flex-col lg:flex-row w-[100%] lg:w-[50%] bg-gray-100 rounded-lg mt-4">
                     <div class="w-[100%] lg:w-[70%] p-5">
                         <p class="text-2xl">Tu suscripcion actual es: <span class="font-bold">{{ auth()->user()->subscription->name }}</span></p>
-                        <ul class="list-disc ml-8 mt-4">
-                            <li>Uso completo y gratuito de Coordify</li>
-                            <li>Posibilidad de crear hasta 3 eventos</li>
-                            <li>Tarifa del 15% en los eventos de pago</li>
-                            <li>Sin tarjetas de debito o credito</li>
-                        </ul>
+                            <ul class="list-disc ml-8 mt-4 text-sm text-gray-800">
+                                <li class="text-base">Acceso completo a Coordify</li>
+
+                                @if (auth()->user()->subscription->event_limit === null)
+                                    <li class="text-base">Eventos ilimitados</li>
+                                @else
+                                    <li class="text-base">Hasta {{ auth()->user()->subscription->event_limit }} eventos</li>
+                                @endif
+
+                                @if (auth()->user()->subscription->event_promotion > 0)
+                                    <li class="text-base">Posibilidad de destacar hasta {{ auth()->user()->subscription->event_promotion }} evento{{ auth()->user()->subscription->event_promotion > 1 ? 's' : '' }}</li>
+                                @else
+                                    <li class="text-base">No incluye eventos destacados</li>
+                                @endif
+
+                                @if (auth()->user()->subscription->fee == 0)
+                                    <li class="text-base">Sin comisiones en eventos de pago</li>
+                                @else
+                                    <li class="text-base">Tarifa del {{ auth()->user()->subscription->fee }}% en los eventos de pago</li>
+                                @endif
+                            </ul>
                     </div>
                     
                     <div class="w-[100%] lg:w-[30%] flex justify-center lg:justify-end px-12 items-center">
