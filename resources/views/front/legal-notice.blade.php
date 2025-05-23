@@ -3,7 +3,7 @@
 @section('titlePage', 'Aviso Legal')
 
 @section('content')
-<main class="w-[85%] lg:w-[80%] mx-auto py-12">
+<main class="w-[85%] lg:w-[80%] mx-auto py-6">
   <header class="mb-8">
     <h1 class="text-3xl font-bold text-gray-900">Aviso Legal</h1>
   </header>

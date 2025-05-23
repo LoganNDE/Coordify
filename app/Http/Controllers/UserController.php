@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-
+use App\Models\Administrator;
 class UserController extends Controller
 {
 
@@ -43,7 +43,6 @@ class UserController extends Controller
 
         return redirect()->back()->with('error', 'Usuario o contraseña incorrectos.');
     }
-
 
     public function register(Request $request)
     {
@@ -147,10 +146,41 @@ class UserController extends Controller
             return redirect()->route('events.index')->with('error','No tienes permisos para agregar administradores');
         }
     }
+
+    public function newadmin(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+
+        ]);
+        
+        if ($request->input('email') === auth()->user()->email){
+            return redirect()->route('events.settings')->with('error', 'El correo debe ser distinto al del administrador principal');
+        }
+
+        $admin = new Administrator();
+        $admin->name = $request->input('name');
+        $admin->email = $request->input('email');
+        $admin->password = bcrypt('admin');
+        $admin->user_id = auth()->user()->id;
+        $admin->save();
+        return redirect()->route('events.index')->with('success', 'Nuevo administrador registrado correctamente');
+    }
     
     public function logout()
     {
         Auth::logout();
         return redirect()->route('front.index');
+    }
+
+    public static function getIDMainAdmin()
+    {
+        return auth()->user()->user_id ?? auth()->user()->id;
+    }
+
+    public static function getMainAdmin($mainAdmin_id)
+    {
+        return User::findOrFail($mainAdmin_id);
     }
 }

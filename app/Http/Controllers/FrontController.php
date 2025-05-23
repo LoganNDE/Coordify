@@ -6,44 +6,55 @@ use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Category;
 use Illuminate\Routing\Controller;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Storage;
 
 class FrontController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth:web,admin')->except(['__invoke', 'getViewSubscription']);
+        $this->middleware('auth:web,admin')->except(['__invoke', 'getViewSubscription', 'getLegalNotice', 'getPrivacyPolicy']);
     }
  
     public function __invoke(Request $request)
     {
-
-        if (isset(auth('admin')->user()->user_id)){
+        if (isset(auth('admin')->user()->user_id)) {
             return view('front.admin');
         }
-
-        if($request->all()){
-            $query = Event::query();
-
-            foreach ($request->all() as $field => $value) {
-                if (!empty($value)) {
-                    if ($field == 'category'){
-                        $category = Category::where('name', $value)->first();
-                        if ($category){
-                            $query->where('category_id', $category->id);
-                        }
-                    }else{
-                        $query->where($field, $value);
-                    }
-                }
-            }
-            
-            $events = $query->where('archived', false)->get();
-        }else{
-            $events = Event::orderBy('promoted', 'desc')->orderBy('created_at', 'desc')->where('archived', false)->get();            
+    
+        $allowedFilters = ['search', 'category', 'community'];
+        $filters = $request->only($allowedFilters);
+    
+        $query = Event::query()->where('archived', false);
+    
+        // Filtro por búsqueda en nombre
+        if (!empty($filters['search'])) {
+            $query->where('name', 'like', '%' . $filters['search'] . '%');
         }
+    
+        // Filtro por nombre de la categoría
+        if (!empty($filters['category'])) {
+            $categoryName = $filters['category'];
+        
+            $query->whereHas('category', function ($subQuery) use ($categoryName) {
+                $subQuery->where('name', $categoryName);
+            });
+        }
+    
+        // Filtro por comunidad
+        if (!empty($filters['community'])) {
+            $query->where('community', $filters['community']);
+        }
+    
+        // Orden si no hay filtros activos
+        if (empty(array_filter($filters))) {
+            $query->orderBy('promoted', 'desc')->orderBy('created_at', 'desc');
+        }
+    
+        $events = $query->paginate(10);
         $categories = Category::all();
-
+    
         return view('front.index', compact('events', 'categories'));
     }
 
@@ -71,7 +82,32 @@ class FrontController extends Controller
             return view('front.tickets');
         }
     }
+ 
+    public function getQRCode($idEvent){
+        if (isset(auth('admin')->user()->user_id)){
+            return view('front.admin');
+        }
 
+        $participants = auth()->user()->participants()->whereHas('events', function($query) use ($idEvent) {$query->where('events.id', $idEvent);})->get();
+        
+        if (!$participants){
+            return redirect()->route('front.tickets')->with('error', 'No entradas para este evento');
+        }
+
+        $data = [];
+
+        foreach ($participants as $participant){
+            $ticket['name'] = $participant->name;
+            $ticket['qrCode'] = Storage::url($participant->qr_code);
+            $data[] = $ticket;
+        }
+
+        if (count($data) == 0){
+            return redirect()->route('front.tickets')->with('error', 'No entradas para este evento');
+        }
+        
+        return view('front.qr-code', compact('data'));
+    }
 
     public function getLegalNotice(){
         return view('front.legal-notice');
@@ -80,4 +116,10 @@ class FrontController extends Controller
     public function getPrivacyPolicy(){
         return view('front.privacy-policy');
     }
+
+    public function getCookiePolice(){
+        return view('front.cookie-police');
+    }
+
+
 }

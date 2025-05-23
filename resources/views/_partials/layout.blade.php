@@ -15,6 +15,19 @@
                 mylocalstorage.setItem('csrf_token', "{{ csrf_token() }}");
         </script>    
     @endif
+    @if(session('success'))
+        <script>
+            console.log("{{ session('success') }}");
+            mylocalStorage = window.localStorage;
+            mylocalStorage.setItem('successLaravel', "{{ session('success') }}");
+        </script>
+    @endif
+    @if(session('error'))
+        <script>
+            mylocalStorage = window.localStorage;
+            mylocalStorage.setItem('laravelError', "{{ session('error') }}");
+        </script>
+    @endif
     <header class="w-full min-h-[100px] flex justify-center items-center">
         <div class="w-[90%] lg:w-[80%] flex justify-between">
             <div class="w-[50%]">
@@ -30,7 +43,7 @@
     <main class="flex-grow flex justify-center">
         @yield('content')
     </main>
-    <div class="w-full flex justify-center sticky bottom-2 lg:bottom-10">
+    <div id="mobileMenu" class="w-full flex justify-center fixed bottom-2 lg:bottom-10 z-50 transition-all">
         <nav class="navContainer px-10 lg:mt-4 rounded-3xl bg-gray-100 lg:min-h-18 min-h-16">
             <div class="flex w-full justify-center gap-8 md:gap-10 lg:gap-15 items-center h-full">
             <a href="{{ route('front.index') }}"><img src="{{ asset('img/menu/home.svg') }}" class="lg:w-12 lg:h-12 min-w-10 h-10" alt="home"></a>

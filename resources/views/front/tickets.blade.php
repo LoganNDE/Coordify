@@ -11,7 +11,7 @@
                 $count = $events->count();
             @endphp
                 <div class="event relative {{ $event['promoted'] ? 'eventPromoted' : '' }}">
-                    <a href="{{ route('events.showPublic', $event['id']) }}">
+                    <a href="{{ route('front.qr-code', $event['id']) }}">
                         <span class="w-[30px] h-[30px] bg-primary absolute right-[5px] top-[-5px] flex justify-center items-center rounded-full">{{ $count }}</span>
                         <img class="bg-white w-full h-[250px] object-cover object-center rounded-lg" src="{{ isset($event['image']) ? Storage::url($event['image']) : asset('/img/default-event.png') }}" alt="{{ $event['name'] }}">
                         <div class="infoEvent">

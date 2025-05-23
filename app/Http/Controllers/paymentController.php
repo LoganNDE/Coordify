@@ -107,7 +107,7 @@ class paymentController extends Controller
                 $event->participants()->attach($participant->id);
             
                 $user_qr =  bcrypt("Participant:" . $participant->id . $participant->name . '_' . "Event:" . $eventId);
-                $filePath = 'front/qrs/' . $participant->id . $participant->name . '/qr.png';
+                $filePath = 'qrs/' . $participant->id . $participant->name . '/qr.png';
                 Storage::disk('public')->put($filePath, QRCodeController::generate($user_qr));
                 $participant->qr_code = $filePath;
                 $participant->qr_decode = $user_qr;
