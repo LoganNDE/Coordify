@@ -1,7 +1,7 @@
 import Swal from 'sweetalert2';
 
 const buyButton = document.querySelector('.freeEvent');
-
+console.log('He cargado');
 
 const showName = (event) => {
     event.preventDefault();
@@ -37,6 +37,7 @@ const showName = (event) => {
 
 
 if (buyButton){
+    console.log('Si hay un evento gratuito');
     buyButton.addEventListener('click', showName)
 }
 
