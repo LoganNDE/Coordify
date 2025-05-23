@@ -3,7 +3,6 @@ import './menu-mobile';
 import Swal from 'sweetalert2';
 import Splide from '@splidejs/splide';
 import '@splidejs/splide/css';
-// To use Html5QrcodeScanner (more info below)
 import {Html5QrcodeScanner} from "html5-qrcode";
 
 
