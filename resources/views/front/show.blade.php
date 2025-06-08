@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="flex flex-wrap gap-4 mt-6">
-                    <a class="py-3 px-12 bg-primary text-white rounded-full shadow hover:bg-opacity-90 transition-all {{ $event->paymentType === 'free' ? 'freeEvent' : '' }}" 
+                    <a class="py-3 px-12 bg-primary text-white rounded-full shadow hover:bg-opacity-90 transition-all eventCkeckout }}" 
                        href="{{ route('payment.checkout', ['id' => $event->id]) }}">
                         Comprar
                     </a>

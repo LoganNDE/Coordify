@@ -3,12 +3,6 @@
 @section('titlePage', 'Suscripciones')
 
 @section('content')
-    @if(session('error'))
-        <script>
-            mylocalStorage = window.localStorage;
-            mylocalStorage.setItem('laravelError', "{{ session('error') }}");
-        </script>
-    @endif
     <div class="w-full flex flex-col items-center">
         <div class="app w-[85%] lg:w-[80%] flex flex-col items-center">
             
@@ -16,27 +10,12 @@
                 <div class="containerActualSub flex flex-col lg:flex-row w-[100%] lg:w-[50%] bg-gray-100 rounded-lg mt-4">
                     <div class="w-[100%] lg:w-[70%] p-5">
                         <p class="text-2xl">Tu suscripcion actual es: <span class="font-bold">{{ auth()->user()->subscription->name }}</span></p>
-                            <ul class="list-disc ml-8 mt-4 text-sm text-gray-800">
-                                <li class="text-base">Acceso completo a Coordify</li>
-
-                                @if (auth()->user()->subscription->event_limit === null)
-                                    <li class="text-base">Eventos ilimitados</li>
-                                @else
-                                    <li class="text-base">Hasta {{ auth()->user()->subscription->event_limit }} eventos</li>
-                                @endif
-
-                                @if (auth()->user()->subscription->event_promotion > 0)
-                                    <li class="text-base">Posibilidad de destacar hasta {{ auth()->user()->subscription->event_promotion }} evento{{ auth()->user()->subscription->event_promotion > 1 ? 's' : '' }}</li>
-                                @else
-                                    <li class="text-base">No incluye eventos destacados</li>
-                                @endif
-
-                                @if (auth()->user()->subscription->fee == 0)
-                                    <li class="text-base">Sin comisiones en eventos de pago</li>
-                                @else
-                                    <li class="text-base">Tarifa del {{ auth()->user()->subscription->fee }}% en los eventos de pago</li>
-                                @endif
-                            </ul>
+                        <ul class="list-disc ml-8 mt-4">
+                            <li>Uso completo y gratuito de Coordify</li>
+                            <li>Posibilidad de crear hasta 3 eventos</li>
+                            <li>Tarifa del 15% en los eventos de pago</li>
+                            <li>Sin tarjetas de debito o credito</li>
+                        </ul>
                     </div>
                     
                     <div class="w-[100%] lg:w-[30%] flex justify-center lg:justify-end px-12 items-center">
@@ -53,7 +32,7 @@
                 <div class="ContainerSubscriptions w-[100%] lg:w-[70%] flex flex-col lg:flex-row gap-6 mt-8 mb-12">
                     <div class="subSilver w-[100%] lg:w-[33%] bg-gray-100 py-8 px-8 rounded-lg flex flex-col gap-8">
                         <div>
-                            <h2 class="text-xl text-black">Plan plata | 5,99</h2>
+                            <h2 class="text-xl text-black">Plan plata | 5,99€</h2>
                             <ul class="list-disc ml-6 mt-4">
                                 <li>Hasta 8 eventos</li>
                                 <li>Posibilidad de destacar 1 evento</li>
@@ -74,7 +53,7 @@
                     </div>
                     <div class="subGold w-[100%] lg:w-[33%] bg-secundary py-8 px-8 rounded-lg flex flex-col gap-8 lg:scale-[1.04]">
                         <div>
-                            <h2 class="text-xl text-white">Plan oro | 12,99</h2>
+                            <h2 class="text-xl text-white">Plan oro | 12,99€</h2>
                             <ul class="list-disc ml-6 mt-4">
                                 <li class="text-white">Hasta 20 eventos</li>
                                 <li class="text-white">Posibilidad de destacar hasta 5 eventos</li>
@@ -94,7 +73,7 @@
                     </div>
                     <div class="subDiamond w-[100%] lg:w-[33%] bg-gray-100 py-8 px-8 rounded-lg flex flex-col gap-8">
                         <div>
-                            <h2 class="text-xl text-black">Plan diamante | 29,99</h2>
+                            <h2 class="text-xl text-black">Plan diamante | 29,99€</h2>
                             <ul class="list-disc ml-6 mt-4">
                                 <li>Eventos ilimitados</li>
                                 <li>Posibilidad de destacar hasta 15 eventos</li>

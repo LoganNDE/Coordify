@@ -155,6 +155,10 @@ SELECT {
     border-radius: 10px;
 }
 
+.event{
+    padding: 10px;
+}
+
 #reader * {
   font-family: inherit;
   box-sizing: border-box;

@@ -10,6 +10,8 @@ use Stripe\Stripe;
 use Stripe\Subscription;
 use Stripe\Checkout\Session;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TicketCheckoutSuccess;
 
 class paymentController extends Controller
 {
@@ -81,7 +83,7 @@ class paymentController extends Controller
             }
 
             $event = Event::findOrFail($eventId);
-            $customerEmail = $session->customer_details->email; // 🎯 Aquí tienes el correo
+            $customerEmail = $session->customer_details->email;
             $user = auth()->user();
 
             // Verifica si ya existe un participante con esta sesión
@@ -107,15 +109,15 @@ class paymentController extends Controller
                 $event->participants()->attach($participant->id);
             
                 $user_qr =  bcrypt("Participant:" . $participant->id . $participant->name . '_' . "Event:" . $eventId);
-                $filePath = 'qrs/' . $participant->id . $participant->name . '/qr.png';
+                $filePath = 'qrs/' .  $participant->id . '/' . $user_qr . '/qr.png';
                 Storage::disk('public')->put($filePath, QRCodeController::generate($user_qr));
                 $participant->qr_code = $filePath;
                 $participant->qr_decode = $user_qr;
                 $participant->save();
-    
+
             }
 
-
+            Mail::to($participant->email)->send(new TicketCheckoutSuccess($participant, $event));
             return view('checkout.success', [
                 'event' => $event,
                 'qr_code' => $participant->qr_code ?? 'example'

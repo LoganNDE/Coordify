@@ -1,7 +1,6 @@
 import Swal from 'sweetalert2';
 
-const buyButton = document.querySelector('.freeEvent');
-console.log('He cargado');
+const buyButton = document.querySelector('.eventCkeckout');
 
 const showName = (event) => {
     event.preventDefault();
@@ -32,8 +31,6 @@ const showName = (event) => {
         }
     });
 }
-
-
 
 
 if (buyButton){
