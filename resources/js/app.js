@@ -296,13 +296,9 @@ window.onload = () =>{
     }
 
     if (paidRadio){
-      //let priceCase = document.querySelector('.inputPrice');
       paidRadio.addEventListener('change', priceCase)
       freeRadio.addEventListener('change', priceCase)
-      /*if (paidRadio.checked){
-        priceCase.classList.remove('hidden')
-      }
-      */
+
     }
 
     if(QRContainerReader){
@@ -313,8 +309,6 @@ window.onload = () =>{
       html5QrcodeScanner.render(onScanSuccess, onScanFailure);
     
       async function onScanSuccess(decodedText, decodedResult) {
-        // handle the scanned code as you like, for example:
-        //console.log(`Code matched = ${decodedText}`, decodedResult);
         if (document.querySelector('meta[name="csrf-token"]').getAttribute('content')){
           const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
           let response = await fetch('/reader',{
@@ -379,8 +373,6 @@ window.onload = () =>{
       }
       
       function onScanFailure(error) {
-        // handle scan failure, usually better to ignore and keep scanning.
-        // for example:
         console.warn(`Code scan error = ${error}`);
       }
     }

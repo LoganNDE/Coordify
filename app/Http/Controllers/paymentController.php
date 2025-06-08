@@ -95,16 +95,9 @@ class paymentController extends Controller
                 $participant->email = $customerEmail;
                 $participant->user_id = $user->id;
                 $participant->stripe_session_id = $session->id;
-
-                // QR (placeholder, puedes reemplazarlo por la lógica real)
-                //$participant->qr_code = 'example';
-
-                
-                //$participant->qr_code = QRCodeController::generate();
                 $participant->save();
             }
 
-            // Asegúrate de no duplicar la relación en la tabla intermedia
             if (!$event->participants->contains($participant->id)) {
                 $event->participants()->attach($participant->id);
             
@@ -140,7 +133,6 @@ class paymentController extends Controller
         $user = auth()->user();
 
         if ($user->stripe_subscription_id) {
-            // Puedes opcionalmente consultar el estado real en Stripe
             $stripeSubscription = Subscription::retrieve($user->stripe_subscription_id);
             
             if ($stripeSubscription && $stripeSubscription->status === 'active') {
@@ -186,9 +178,8 @@ class paymentController extends Controller
 
 
         if ($session->status === 'complete' || $session->payment_status === 'paid') {
-            // Aquí podrías guardar info adicional del plan
             $user = auth()->user();
-            $subscriptionId = $session->subscription; // <-- Este es el bueno
+            $subscriptionId = $session->subscription;
 
             $user->subscription_id = $session->metadata->plan_id;
             $user->stripe_subscription_id = $subscriptionId;
@@ -218,10 +209,6 @@ class paymentController extends Controller
         try {
             $subscription = Subscription::retrieve($user->stripe_subscription_id);
 
-            // Opción 1: Cancelar inmediatamente
-            // $subscription->cancel();
-
-            // Opción 2: Cancelar al final del periodo
             $subscription->cancel_at_period_end = true;
             $subscription->save();
 

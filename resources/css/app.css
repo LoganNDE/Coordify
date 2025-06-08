@@ -174,9 +174,8 @@ SELECT {
   display: block;
 }
 
-/* Botones */
 #reader button.html5-qrcode-element {
-  background-color: #373643; /* color-secundary */
+  background-color: #373643; 
   color: white;
   padding: 0.6rem 1.4rem;
   font-size: 0.875rem;
@@ -192,12 +191,11 @@ SELECT {
   background-color: #2c2b36;
 }
 
-/* Botón tipo texto (cambiar tipo de escaneo) */
+
 #html5-qrcode-anchor-scan-type-change {
     display: none;
 }
 
-/* Select estilizado */
 #reader__dashboard select {
   width: auto;
   max-width: 280px;
@@ -215,9 +213,9 @@ SELECT {
 
 input:-webkit-autofill,
 input[type="search"] {
-    background-color: #f3f4f6 !important; /* Tailwind bg-gray-50 */
+    background-color: #f3f4f6 !important;
     -webkit-box-shadow: 0 0 0px 1000px #f3f4f6 inset !important;
-    color: #111827 !important; /* text-gray-900 */
+    color: #111827 !important; 
     border: #b3b3b3 1px solid !important;
 }
 

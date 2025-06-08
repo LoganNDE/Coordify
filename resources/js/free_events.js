@@ -32,9 +32,7 @@ const showName = (event) => {
     });
 }
 
-
 if (buyButton){
-    console.log('Si hay un evento gratuito');
     buyButton.addEventListener('click', showName)
 }
 
