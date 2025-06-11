@@ -32,7 +32,7 @@
                 <div class="ContainerSubscriptions w-[100%] lg:w-[70%] flex flex-col lg:flex-row gap-6 mt-8 mb-12">
                     <div class="subSilver w-[100%] lg:w-[33%] bg-gray-100 py-8 px-8 rounded-lg flex flex-col gap-8">
                         <div>
-                            <h2 class="text-xl text-black">Plan plata | 5,99€</h2>
+                            <h2 class="text-xl text-black">Plan plata | 5,99€ / mes</h2>
                             <ul class="list-disc ml-6 mt-4">
                                 <li>Hasta 8 eventos</li>
                                 <li>Posibilidad de destacar 1 evento</li>
@@ -53,7 +53,7 @@
                     </div>
                     <div class="subGold w-[100%] lg:w-[33%] bg-secundary py-8 px-8 rounded-lg flex flex-col gap-8 lg:scale-[1.04]">
                         <div>
-                            <h2 class="text-xl text-white">Plan oro | 12,99€</h2>
+                            <h2 class="text-xl text-white">Plan oro | 12,99€ / mes</h2>
                             <ul class="list-disc ml-6 mt-4">
                                 <li class="text-white">Hasta 20 eventos</li>
                                 <li class="text-white">Posibilidad de destacar hasta 5 eventos</li>
@@ -73,7 +73,7 @@
                     </div>
                     <div class="subDiamond w-[100%] lg:w-[33%] bg-gray-100 py-8 px-8 rounded-lg flex flex-col gap-8">
                         <div>
-                            <h2 class="text-xl text-black">Plan diamante | 29,99€</h2>
+                            <h2 class="text-xl text-black">Plan diamante | 29,99€ / mes</h2>
                             <ul class="list-disc ml-6 mt-4">
                                 <li>Eventos ilimitados</li>
                                 <li>Posibilidad de destacar hasta 15 eventos</li>

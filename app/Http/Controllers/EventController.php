@@ -100,42 +100,46 @@ class EventController extends Controller
         if ($request->input('price') == null) {
             $request->merge(['price' => 0]);
         }
-
+    
+        $today = now()->format('Y-m-d');
+        $maxDate = now()->addYears(2)->format('Y-m-d');
+    
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
-            'startDate' => 'required|date',
+            'startDate' => "required|date|after_or_equal:$today|before_or_equal:$maxDate",
             'startTime' => 'required|date_format:H:i',
-            'endDate' => 'required|date',
+            'endDate' => "required|date|after_or_equal:startDate|before_or_equal:$maxDate",
             'endTime' => 'required|date_format:H:i',
             'paymentType' => 'required|in:free,paid',
-            'price' => 'required|integer',
+            'price' => 'required|integer|min:0|max:300',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'description' => 'nullable|string',
             'categories' => 'required|in:ocio,arte,deportes,negocios,entretenimiento,gastronomía,naturaleza,bienestar,educación,gaming,tecnología',
             'community' => 'required|in:La Rioja,Castilla y León,Ciudad Autónoma de Melilla,Comunidad de Madrid,Andalucía,Illes Balears,Aragón,Galicia,Principado de Asturias,Castilla-La Mancha,Cantabria,Ciudad Autónoma de Ceuta,País Vasco,Comunidad Foral de Navarra,Región de Murcia,Cataluña,Comunitat Valenciana,Canarias,Extremadura',
         ]);
-
+    
         $validatedData['user_id'] = $this->getMainAdminId();
         $mainAdmin = User::findOrFail($validatedData['user_id']);
-
+    
         $category_id = Category::where('name', $request->input('categories'))->value('id');
         $validatedData['category_id'] = $category_id;
-
+    
         if ($request->input('paymentType') == 'free' && $request->input('price') > 0) {
             return redirect()->route('events.create')->with('error', 'Los eventos gratuitos no pueden tener precio');
         }
-
+    
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $filePath = $request->file('image')->store('events', 'public');
             $validatedData['image'] = $filePath;
         }
-
+    
         $event = Event::create($validatedData);
-
+    
         Mail::to($mainAdmin->email)->send(new NewEvent($event));
         return redirect()->route('events.index')->with('success', 'Evento creado con éxito');
     }
+    
 
     public function publicShow(string $id)
     {
