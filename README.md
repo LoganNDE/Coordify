@@ -9,7 +9,7 @@ Coordify es una plataforma web desarrollada con Laravel que permite a organizado
 - ✅ Creación de eventos con imagen, descripción, fecha, hora y ubicación
 - 🎟️ Venta de entradas con integración de Stripe
 - 🔐 Registro de usuarios y autenticación (Google y correo)
-- 📩 Confirmación de compra por email con ticket adjunto
+- 📩 Envío automatico de correos
 - 📲 Generación automática de códigos QR únicos por entrada
 - 📋 Escaneo de QR para validación de asistencia en el evento
 - 📊 Panel de administración para organizadores
